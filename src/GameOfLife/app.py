@@ -6,6 +6,7 @@ import pygame as pg
 from pygame import SurfaceType
 from pygame.event import EventType
 from pygame.time import Clock
+from loguru import logger
 
 from config import Resolution, FrameRate
 
@@ -19,6 +20,7 @@ def exit_from_app(code: int = 0) -> NoReturn:
     Returns:
         Nothing
     """
+    logger.info("Exiting from app with code <{}>", code)
     pg.quit()
     sys.exit(code)
 
@@ -32,23 +34,30 @@ class App:
     clock: Clock  # Sets a delay for the desired amount of FPS
 
     def __init__(self) -> None:
+        logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.width = Resolution.Width
         self.height = Resolution.Height
         self.screen = pg.display.set_mode((self.width, self.height))
         self.clock = Clock()
+        logger.debug("Finish of class initialization {}", self.__class__.__name__)
 
     @staticmethod
     def _handle_event_for_key_event(event: EventType) -> Optional[NoReturn]:
         """Catches events from the keyboard."""
+        logger.debug("Event received from the keyboard - {}", event)
         key: int = event.key
         match key:
-            case pg.K_ESCAPE: exit_from_app()
+            case pg.K_ESCAPE:
+                logger.info("ESC was pressed")
+                exit_from_app()
 
     @staticmethod
     def _handle_event_for_mouse_event(event: EventType) -> None:
         """Catches events from the mouse."""
+        logger.debug("Event received from the mouse - {}", event)
         button: int = event.button
         if button == 1:
+            logger.info("The LMB was pressed")
             return None
 
     def _match_type(self, event: EventType) -> Optional[NoReturn]:
@@ -62,10 +71,13 @@ class App:
         """
         match event.type:
             case pg.QUIT:
-                exit_from_app()
+                logger.info("The user clicked on the cross")
+                exit_from_app(0)
             case pg.KEYDOWN:
+                logger.info("The user clicked on the key")
                 self._handle_event_for_key_event(event)
             case pg.MOUSEBUTTONDOWN:
+                logger.info("The user clicked on the mouse")
                 self._handle_event_for_mouse_event(event)
 
     def handle_events(self) -> None:
@@ -103,7 +115,7 @@ class App:
         try:
             self._game_loop()
         except KeyboardInterrupt:
-            # TODO add logging
+            logger.info("A KeyboardInterrupt exception was caught")
             exit_from_app(-1)
-        finally:
-            exit_from_app(0)
+        else:
+            exit_from_app()
