@@ -8,7 +8,7 @@ from pygame.event import EventType
 from pygame.time import Clock
 from loguru import logger
 
-from .config import Resolution, FrameRate
+from config import Resolution, FrameRate
 
 
 def exit_from_app(code: int = 0) -> NoReturn:
