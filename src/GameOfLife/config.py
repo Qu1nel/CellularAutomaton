@@ -23,8 +23,8 @@ FPS: int = 144
 # -----------------------------------------------------------------------------
 
 # Resolution window of app
-_resolution = namedtuple('WindowResolutionApp', ('Width', 'Height'))
-Resolution = _resolution(Width=WIDTH, Height=HEIGHT)
+WindowResolutionApp = namedtuple('WindowResolutionApp', ('Width', 'Height'))
+Resolution = WindowResolutionApp(Width=WIDTH, Height=HEIGHT)
 
 # Frame rate for app
 FrameRate = FPS

@@ -23,7 +23,7 @@ class App:
     screen: SurfaceType  # Display surface (application screen)
     clock: Clock  # Sets a delay for the desired amount of FPS
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.width = Resolution.Width
         self.height = Resolution.Height
         self.screen = pg.display.set_mode((self.width, self.height))

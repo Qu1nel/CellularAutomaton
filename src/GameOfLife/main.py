@@ -1,13 +1,11 @@
-from typing import NoReturn, Union
+from typing import NoReturn, Optional
 
 from app import App
 
 
-def main() -> Union[NoReturn, None]:
+def main() -> Optional[NoReturn]:
     game = App()
     game.run()
-
-    return None
 
 
 if __name__ == '__main__':
