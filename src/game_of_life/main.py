@@ -1,9 +1,9 @@
 from typing import NoReturn, Optional
 
-from app import App
-from utils import setting_arguments_parser
-
 from loguru import logger
+
+from .app import App
+from .utils import setting_arguments_parser
 
 DEBUG: bool = setting_arguments_parser().debug
 
