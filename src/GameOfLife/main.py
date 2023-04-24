@@ -1,7 +1,9 @@
+from typing import NoReturn
+
 from app import App
 
 
-def main() -> None:
+def main() -> NoReturn:
     game = App()
     game.run()
 

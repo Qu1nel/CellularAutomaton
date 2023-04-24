@@ -8,16 +8,23 @@ Below are the fields (variables) that you can change, but taking into account th
     * WIDTH  // satisfactory values from 800 to <your monitor width resolution>
     * HEIGHT  // satisfactory values from 600 to <your monitor height resolution>
 
-Version: 0.01
+    * FPS  // satisfactory value from 30 to 30+
+
+Version: 0.02
 """
 from collections import namedtuple
 
 WIDTH: int = 1920
 HEIGHT: int = 1080
+FPS: int = 144
 
 # Below are the settings that it is not advisable to touch if you are not sure
 # exactly what you are changing.
 # -----------------------------------------------------------------------------
 
+# Resolution window of app
 _resolution = namedtuple('WindowResolutionApp', ('Width', 'Height'))
 Resolution = _resolution(Width=WIDTH, Height=HEIGHT)
+
+# Frame rate for app
+FrameRate = FPS
