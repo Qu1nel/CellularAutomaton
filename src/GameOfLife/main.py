@@ -4,6 +4,7 @@ from app import App
 
 
 def main() -> Optional[NoReturn]:
+    """The main function of GameOfLive."""
     game = App()
     game.run()
 
