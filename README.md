@@ -15,7 +15,7 @@ Make sure that all [requirements](#requirements) are met.
 
 ## Requirements
 
-_The Python interpreter version 3.11+_
+_The Python interpreter version 3.10+_
 
 All python dependencies specified in the file [requirements.txt](./requirements.txt)
 
