@@ -36,10 +36,10 @@ class App:
             case pg.K_ESCAPE: exit_from_app()
 
     @staticmethod
-    def _handle_event_for_mouse_event(event: EventType) -> NotImplemented:
+    def _handle_event_for_mouse_event(event: EventType) -> None:
         button: int = event.button
         if button == 1:
-            return NotImplemented
+            return None
 
     def _match_type(self, event: EventType) -> Optional[NoReturn]:
         match event.type:
