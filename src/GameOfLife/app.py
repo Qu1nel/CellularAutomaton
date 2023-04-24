@@ -1,3 +1,6 @@
+import config
+
+
 class App:
     def __int__(self):
         pass
