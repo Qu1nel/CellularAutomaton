@@ -1,4 +1,6 @@
 import argparse
+
+
 def setting_arguments_parser() -> argparse.Namespace:
     """Adds and configures the argument parser to enable the debug (logging) flag."""
     parser = argparse.ArgumentParser(

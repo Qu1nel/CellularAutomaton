@@ -58,7 +58,6 @@ class App:
         button: int = event.button
         if button == 1:
             logger.info("The LMB was pressed")
-            return None
 
     def _match_type(self, event: EventType) -> Optional[NoReturn]:
         """Compares events and, depending on its type, determines further actions.
