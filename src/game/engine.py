@@ -3,6 +3,7 @@ from typing import Tuple, Generic, TypeVar, NoReturn, Optional
 
 import pygame as pg
 
+from loguru import logger
 from pygame import SurfaceType
 from pygame.time import Clock
 
@@ -36,21 +37,28 @@ class GameEngine:
     area: MatrixCell  # current state of area
 
     def __init__(self, app: AppType, screen: pg.Surface) -> None:
+        logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.app = app
         self.screen = screen
         self.color_cell = c.COLOR_CELL
         self.previous_area = [[]]
 
-        width_x, height_y = self.app.width // c.CELL_SIZE, self.app.height // c.CELL_SIZE
+        number_width_x, number_height_y = self.app.width // c.CELL_SIZE, self.app.height // c.CELL_SIZE
 
+        logger.debug("Number of cells in width - {}", number_width_x)
+        logger.debug("Number of cells in height - {}", number_height_y)
+
+        logger.info("Start of filling area initialization")
         self.area = []
-        for y in range(height_y):
+        for y in range(number_height_y):
             row: RowCell = []
 
-            for x in range(width_x):
+            for x in range(number_width_x):
                 row.append(Cell(coord=(x, y), alive=bool(randint(0, 1))))
 
             self.area.append(row)
+        logger.info("Finish of filling area initialization")
+        logger.debug("Finish of class initialization {}", self.__class__.__name__)
 
     def draw_area(self) -> None:
         """Draws the cells in self.area on the monitor.
@@ -62,6 +70,7 @@ class GameEngine:
         def _normalized(coord: Tuple[int, int]) -> tuple[int, ...]:
             return tuple(i * c.CELL_SIZE for i in coord)
 
+        logger.debug("Starting drawing game area in GameEngine.draw_area")
         for row in self.area:
             for cell in row:
                 if cell.is_alive():
@@ -77,7 +86,10 @@ class GameEngine:
         Returns:
             None
         """
+        logger.debug("Start process next cycle for game area")
+
         self.previous_area = quick_copy(self.area)
+
         for line in self.previous_area[1:-1]:
             for cell in line[1:-1]:
                 number_living = 0
@@ -102,3 +114,5 @@ class GameEngine:
                     if number_living == 3:
                         x, y = cell.coord
                         self.area[x][y].alive = True
+
+        logger.debug("Finish process next cycle for game area")

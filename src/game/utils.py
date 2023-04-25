@@ -67,4 +67,14 @@ def quick_copy(area_cell: MatrixCell) -> MatrixCell:
     Returns:
         Same game_area - copy
     """
-    return [[cell.copy() for cell in row] for row in area_cell]
+    logger.debug("In quick_copy()")
+    try:
+        logger.debug("Start copy game area")
+        result = [[cell.copy() for cell in row] for row in area_cell]
+    except Exception as exc:
+        logger.error("Error in quick_copy(). Details: {}", exc)
+        raise exc from None
+    else:
+        return result
+    finally:
+        logger.debug("Exiting from quick_copy()")

@@ -9,7 +9,7 @@ from loguru import logger
 
 from config import Resolution, FrameRate, COLOR_BG
 from utils import exit_from_app, handle_event_for_key_event, handle_event_for_mouse_event
-from life import GameEngine
+from engine import GameEngine
 
 
 class App:
@@ -68,6 +68,7 @@ class App:
         Returns:
             None
         """
+        logger.debug("In App.draw()")
         self.screen.fill(COLOR_BG)
         self.GameEngine.draw_area()
         pg.display.update()
@@ -81,6 +82,7 @@ class App:
         Returns:
             None
         """
+        logger.debug("In App.loop()")
         while True:
             self.handle_events()
             self.draw()
