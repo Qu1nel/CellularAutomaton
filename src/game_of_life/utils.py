@@ -1,4 +1,11 @@
+import sys
 import argparse
+
+from typing import NoReturn
+
+import pygame as pg
+
+from loguru import logger
 
 
 def setting_arguments_parser() -> argparse.Namespace:
@@ -11,3 +18,17 @@ def setting_arguments_parser() -> argparse.Namespace:
     parser.add_argument('-D', '--debug', action='store_true', help="Enables game logging")
     args = parser.parse_args()
     return args
+
+
+def exit_from_app(code: int = 0) -> NoReturn:
+    """Correctly exits the game.
+
+    Args:
+        code: Code that return app
+
+    Returns:
+        Nothing
+    """
+    logger.info("Exiting from app with code <{}>", code)
+    pg.quit()
+    sys.exit(code)

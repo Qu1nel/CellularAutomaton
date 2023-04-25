@@ -1,4 +1,3 @@
-import sys
 from typing import NoReturn, Optional
 
 import pygame as pg
@@ -9,20 +8,7 @@ from pygame.time import Clock
 from loguru import logger
 
 from config import Resolution, FrameRate
-
-
-def exit_from_app(code: int = 0) -> NoReturn:
-    """Correctly exits the game.
-
-    Args:
-        code: Code that return app
-
-    Returns:
-        Nothing
-    """
-    logger.info("Exiting from app with code <{}>", code)
-    pg.quit()
-    sys.exit(code)
+from utils import exit_from_app
 
 
 class App:
