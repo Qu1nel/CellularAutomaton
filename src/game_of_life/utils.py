@@ -1,14 +1,17 @@
 import sys
 import argparse
 
-from typing import Optional, NoReturn
+from typing import Optional, NoReturn, TypeAlias, List
 
 import pygame as pg
 
 from pygame.event import EventType
 from loguru import logger
 
-from life import MatrixCell
+from cell import Cell
+
+RowCell: TypeAlias = List[Cell]
+MatrixCell: TypeAlias = List[RowCell]
 
 
 def setting_arguments_parser() -> argparse.Namespace:

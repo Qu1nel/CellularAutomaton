@@ -1,4 +1,4 @@
-from typing import List, TypeAlias, Tuple
+from typing import Tuple
 
 import pygame as pg
 
@@ -6,10 +6,7 @@ import config as c
 
 from app import App
 from cell import Cell
-from utils import quick_copy
-
-RowCell: TypeAlias = List[Cell]
-MatrixCell: TypeAlias = List[RowCell]
+from utils import quick_copy, RowCell, MatrixCell
 
 
 class GameEngine:
