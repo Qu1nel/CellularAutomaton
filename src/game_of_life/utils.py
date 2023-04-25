@@ -8,6 +8,8 @@ import pygame as pg
 from pygame.event import EventType
 from loguru import logger
 
+from life import MatrixCell
+
 
 def setting_arguments_parser() -> argparse.Namespace:
     """Adds and configures the argument parser to enable the debug (logging) flag."""
@@ -51,3 +53,15 @@ def exit_from_app(code: int = 0) -> NoReturn:
     logger.info("Exiting from app with code <{}>", code)
     pg.quit()
     sys.exit(code)
+
+
+def quick_copy(area_cell: MatrixCell) -> MatrixCell:
+    """Copies the playing field, creates a new instance.
+
+    Args:
+        area_cell: Matrix of Cell (game area)
+
+    Returns:
+        Same game_area - copy
+    """
+    return [[cell.copy() for cell in row] for row in area_cell]
