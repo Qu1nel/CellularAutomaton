@@ -35,3 +35,10 @@ class GameEngine:
                 row.append(Cell(coord=(x, y), alive=True))
 
             self.area.append(row)
+
+    def draw_area(self) -> None:
+        """Draws the cells in self.area on the monitor.
+
+        Returns:
+            None
+        """
