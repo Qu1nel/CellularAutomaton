@@ -26,6 +26,7 @@ class AppType(Generic[T]):
     def loop(self) -> None: ...
 
     def draw(self) -> None: ...
+
     def handle_events(self) -> None: ...
 
 
@@ -45,10 +46,10 @@ class GameEngine:
 
         number_width_x, number_height_y = self.app.width // c.CELL_SIZE, self.app.height // c.CELL_SIZE
 
-        logger.debug("Number of cells in width - {}", number_width_x)
-        logger.debug("Number of cells in height - {}", number_height_y)
+        logger.info("Number of cells in width - {}", number_width_x)
+        logger.info("Number of cells in height - {}", number_height_y)
 
-        logger.info("Start of filling area initialization")
+        logger.debug("Start of filling area initialization")
         self.area = []
         for y in range(number_height_y):
             row: RowCell = []
@@ -57,7 +58,10 @@ class GameEngine:
                 row.append(Cell(coord=(x, y), alive=bool(randint(0, 1))))
 
             self.area.append(row)
-        logger.info("Finish of filling area initialization")
+
+        logger.info("area size is - {}", len(self.area))
+        logger.info("Total cells in area - {}", number_width_x * number_height_y)
+        logger.debug("Finish of filling area initialization")
         logger.debug("Finish of class initialization {}", self.__class__.__name__)
 
     def draw_area(self) -> None:
@@ -77,7 +81,7 @@ class GameEngine:
                     pg.draw.rect(
                         surface=self.screen,
                         color=self.color_cell,
-                        rect=pg.Rect(_normalized(cell.coord), (c.CELL_SIZE - 2, c.CELL_SIZE - 2))
+                        rect=pg.Rect(_normalized(cell.coord), (c.CELL_SIZE - 1, c.CELL_SIZE - 1))
                     )
 
     def next_cycle(self) -> None:
@@ -106,13 +110,11 @@ class GameEngine:
 
                     number_living += self.previous_area[column][row].is_alive()
 
-                if cell.is_alive():
-                    if number_living not in (2, 3):
-                        x, y = cell.coord
-                        self.area[x][y].alive = False
-                else:
-                    if number_living == 3:
-                        x, y = cell.coord
-                        self.area[x][y].alive = True
+                if cell.is_alive() and number_living not in (2, 3):
+                    x, y = cell.coord
+                    self.area[y][x].alive = False
+                elif not cell.is_alive() and number_living == 3:
+                    x, y = cell.coord
+                    self.area[y][x].alive = True
 
         logger.debug("Finish process next cycle for game area")

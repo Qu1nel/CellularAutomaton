@@ -10,7 +10,7 @@ DEBUG: bool = setting_arguments_parser().debug
 if DEBUG is False:
     logger.stop()
 else:
-    logger.add("../log/debug.log", rotation="100 MB", compression='zip')
+    logger.add("../log/debug.log", rotation="2.5 MB", compression='zip')
 
 
 @logger.catch

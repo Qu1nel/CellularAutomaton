@@ -73,6 +73,10 @@ class App:
         self.GameEngine.draw_area()
         pg.display.update()
 
+    def process(self) -> None:
+        """Calculates necessary before trapping events"""
+        self.GameEngine.next_cycle()
+
     def loop(self) -> None:
         """Endless* game loop.
 
@@ -84,8 +88,9 @@ class App:
         """
         logger.debug("In App.loop()")
         while True:
-            self.handle_events()
             self.draw()
+            self.process()
+            self.handle_events()
             self.clock.tick(FrameRate)
 
     def run(self) -> Optional[NoReturn]:
