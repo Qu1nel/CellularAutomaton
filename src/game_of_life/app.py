@@ -25,6 +25,7 @@ class App:
         self.width = Resolution.Width
         self.height = Resolution.Height
         self.screen = pg.display.set_mode((self.width, self.height))
+        # noinspection PyTypeChecker
         self.GameEngine = GameEngine(app=self, screen=self.screen)
         self.clock = Clock()
         logger.debug("Finish of class initialization {}", self.__class__.__name__)

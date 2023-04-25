@@ -1,23 +1,40 @@
-from typing import Tuple
+from typing import Tuple, Generic, TypeVar, NoReturn, Optional
 
 import pygame as pg
 
+from pygame import SurfaceType
+from pygame.time import Clock
+
 import config as c
 
-from app import App
 from cell import Cell
 from utils import quick_copy, RowCell, MatrixCell
+
+T = TypeVar("T")
+
+
+class AppType(Generic[T]):
+    width: int
+    height: int
+    screen: SurfaceType
+    clock: Clock
+
+    def run(self) -> Optional[NoReturn]: ...
+
+    def loop(self) -> None: ...
+
+    def draw(self) -> None: ...
+    def handle_events(self) -> None: ...
 
 
 class GameEngine:
     __slots__ = ('app', 'screen', 'color_cell', 'previous_area', 'area')
-    app: App
     screen: pg.Surface
     color_cell: c.Color
     previous_area: MatrixCell  # previous state of area
     area: MatrixCell  # current state of area
 
-    def __init__(self, app: App, screen: pg.Surface) -> None:
+    def __init__(self, app: AppType, screen: pg.Surface) -> None:
         self.app = app
         self.screen = screen
         self.color_cell = c.COLOR_CELL
