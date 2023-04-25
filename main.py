@@ -1,1 +1,1 @@
-./src/game_of_life/main.py
+./src/game/main.py
