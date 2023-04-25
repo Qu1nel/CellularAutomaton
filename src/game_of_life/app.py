@@ -11,10 +11,6 @@ from config import Resolution, FrameRate
 from utils import exit_from_app
 
 
-class HandlerMixin:
-    pass
-
-
 class App:
     __slots__ = ('width', 'height', 'screen', 'clock')
 
@@ -80,7 +76,7 @@ class App:
         for event in pg.event.get():
             self._match_type(event)
 
-    def _game_loop(self) -> None:
+    def loop(self) -> None:
         """Endless* game loop.
 
         Handles events.
@@ -102,7 +98,7 @@ class App:
             Nothing
         """
         try:
-            self._game_loop()
+            self.loop()
         except KeyboardInterrupt:
             logger.info("A KeyboardInterrupt exception was caught")
             exit_from_app(-1)
