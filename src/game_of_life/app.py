@@ -7,7 +7,7 @@ from pygame.event import EventType
 from pygame.time import Clock
 from loguru import logger
 
-from config import Resolution, FrameRate
+from config import Resolution, FrameRate, COLOR_BG
 from utils import exit_from_app, handle_event_for_key_event, handle_event_for_mouse_event
 
 
@@ -59,6 +59,15 @@ class App:
         for event in pg.event.get():
             self._match_type(event)
 
+    def draw(self) -> None:
+        """Draws a picture on the display.
+
+        Returns:
+            None
+        """
+        self.screen.fill(COLOR_BG)
+        pg.display.update()
+
     def loop(self) -> None:
         """Endless* game loop.
 
@@ -70,6 +79,7 @@ class App:
         """
         while True:
             self.handle_events()
+            self.draw()
             self.clock.tick(FrameRate)
 
     def run(self) -> Optional[NoReturn]:
