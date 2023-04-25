@@ -1,4 +1,4 @@
-from typing import List, TypeAlias
+from typing import List, TypeAlias, Tuple
 
 import pygame as pg
 
@@ -42,3 +42,15 @@ class GameEngine:
         Returns:
             None
         """
+
+        def _normalized(coord: Tuple[int, int]) -> tuple[int, ...]:
+            return tuple(i * c.CELL_SIZE for i in coord)
+
+        for row in self.area:
+            for cell in row:
+                if cell.is_alive():
+                    pg.draw.rect(
+                        surface=self.screen,
+                        color=self.color_cell,
+                        rect=pg.Rect(_normalized(cell.coord), (c.CELL_SIZE - 2, c.CELL_SIZE - 2))
+                    )
