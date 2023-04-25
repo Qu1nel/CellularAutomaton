@@ -22,5 +22,5 @@ jobs:
         pip install mypy
     - name: Analysing the code with pylint and mypy
       run: |
-        pylint --rcfile .pylintrc $(git ls-files '*.py')
-        mypy --config-file .mypy.ini $(git ls-files '*.py')
+        pylint --rcfile .pylintrc $(find . -name "*.py" | xargs)
+        mypy --config-file .mypy.ini $(find . -name "*.py" | xargs)
