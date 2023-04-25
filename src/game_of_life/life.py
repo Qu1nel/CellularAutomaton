@@ -54,3 +54,10 @@ class GameEngine:
                         color=self.color_cell,
                         rect=pg.Rect(_normalized(cell.coord), (c.CELL_SIZE - 2, c.CELL_SIZE - 2))
                     )
+
+    def next_cycle(self) -> None:
+        """Calculates the next state of self.area from the current state.
+
+        Returns:
+            None
+        """
