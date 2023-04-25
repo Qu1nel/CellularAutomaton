@@ -11,6 +11,10 @@ from config import Resolution, FrameRate
 from utils import exit_from_app
 
 
+class HandlerMixin:
+    pass
+
+
 class App:
     __slots__ = ('width', 'height', 'screen', 'clock')
 
@@ -89,7 +93,7 @@ class App:
             self.handle_events()
             self.clock.tick(FrameRate)
 
-    def run(self) -> NoReturn:
+    def run(self) -> Optional[NoReturn]:
         """Gameplay handler and exception maintenance.
 
         Always exits the application via exit_from_app(<code>)
@@ -102,5 +106,3 @@ class App:
         except KeyboardInterrupt:
             logger.info("A KeyboardInterrupt exception was caught")
             exit_from_app(-1)
-        else:
-            exit_from_app()

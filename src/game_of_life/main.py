@@ -3,7 +3,7 @@ from typing import NoReturn, Optional
 from loguru import logger
 
 from app import App
-from utils import setting_arguments_parser
+from utils import exit_from_app, setting_arguments_parser
 
 DEBUG: bool = setting_arguments_parser().debug
 
@@ -19,6 +19,8 @@ def main() -> Optional[NoReturn]:
     logger.debug("In main() function")
     game = App()
     game.run()
+
+    exit_from_app(0)
 
 
 if __name__ == '__main__':
