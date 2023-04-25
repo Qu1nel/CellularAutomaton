@@ -1,3 +1,4 @@
+from random import randint
 from typing import Tuple, Generic, TypeVar, NoReturn, Optional
 
 import pygame as pg
@@ -47,7 +48,7 @@ class GameEngine:
             row: RowCell = []
 
             for x in range(width_x):
-                row.append(Cell(coord=(x, y), alive=True))
+                row.append(Cell(coord=(x, y), alive=bool(randint(0, 1))))
 
             self.area.append(row)
 

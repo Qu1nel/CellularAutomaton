@@ -69,6 +69,7 @@ class App:
             None
         """
         self.screen.fill(COLOR_BG)
+        self.GameEngine.draw_area()
         pg.display.update()
 
     def loop(self) -> None:
