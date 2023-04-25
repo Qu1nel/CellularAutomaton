@@ -1,6 +1,6 @@
 import unittest
 
-from src.game_of_life.cell import Cell
+from src.game.cell import Cell
 
 
 class MyTestCase(unittest.TestCase):
