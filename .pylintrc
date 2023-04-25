@@ -2,10 +2,11 @@
 disable=
     C0114,  # missing-module-docstring
     C0115,  # missing-class-docstring
-    W0511,  # fixme (TODO, etc) 
+    W0511,  # fixme
     W0622,  # redefined-builtin
     E0401,  # imports-error
     C0301,  # line-too-long
     C0103,  # invalid-name
     E1101,  # no-member
     R0801,  # duplicate-code
+    R0903,  # too-few-public-methods
