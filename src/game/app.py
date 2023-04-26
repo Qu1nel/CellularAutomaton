@@ -6,7 +6,7 @@ from pygame.time import Clock
 from loguru import logger
 
 from config import Resolution, FrameRate, COLOR_BG
-from utils import exit_from_app, handle_event_for_key_event, handle_event_for_mouse_event
+from utils import exit_from_app_with_code, handle_event_for_key_event, handle_event_for_mouse_event
 from engine import GameEngine
 
 
@@ -41,7 +41,7 @@ class App:
         match event.type:
             case pg.QUIT:
                 logger.info("The user clicked on the cross")
-                exit_from_app(0)
+                exit_from_app_with_code(0)
             case pg.KEYDOWN:
                 logger.info("The user clicked on the key")
                 handle_event_for_key_event(event)
@@ -98,4 +98,4 @@ class App:
             self.loop()
         except KeyboardInterrupt:
             logger.info("A KeyboardInterrupt exception was caught")
-            exit_from_app(-1)
+            exit_from_app_with_code(-1)

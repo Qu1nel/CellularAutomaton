@@ -33,7 +33,7 @@ def handle_event_for_key_event(event: EventType) -> Optional[NoReturn]:
     match key:
         case pg.K_ESCAPE:
             logger.info("ESC was pressed")
-            exit_from_app()
+            exit_from_app_with_code(0)
 
 
 def handle_event_for_mouse_event(event: EventType) -> None:
@@ -44,7 +44,7 @@ def handle_event_for_mouse_event(event: EventType) -> None:
         logger.info("The LMB was pressed")
 
 
-def exit_from_app(code: int = 0) -> NoReturn:
+def exit_from_app_with_code(code: int = 0) -> NoReturn:
     """Correctly exits the game.
 
     Args:
