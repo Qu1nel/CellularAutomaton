@@ -1,4 +1,3 @@
-![Tests](https://img.shields.io/github/actions/workflow/status/Qu1nel/Life/python-tests.yml?label=Tests&logo=github)
 ![Linting](https://img.shields.io/github/actions/workflow/status/Qu1nel/Life/pylint_mypy.yml?label=Linting&logo=github)
 
 
