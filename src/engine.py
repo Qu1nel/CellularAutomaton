@@ -7,7 +7,7 @@ from loguru import logger
 
 import config as c
 
-from utils import quick_copy, RowCell, MatrixCell
+from utils import quick_copy, MatrixCell
 from base import AppBase, GameEngineBase
 from cell import Cell
 
@@ -34,14 +34,11 @@ class GameEngine(GameEngineBase):
 
         logger.debug("Start of filling area initialization")
 
-        self.area = []
-        for y in range(number_height_y):
-            row: RowCell = []
-
-            for x in range(number_width_x):
-                row.append(Cell(coord=(x, y), alive=bool(randint(0, 1))))
-
-            self.area.append(row)
+        self.area = [
+            [Cell((x, y), randint(0, 1))
+             for x in range(number_width_x)]
+            for y in range(number_height_y)
+        ]
 
         logger.info("area size is - {}", len(self.area))
         logger.info("Total cells in area - {}", number_width_x * number_height_y)
