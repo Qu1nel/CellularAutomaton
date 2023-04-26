@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Tuple
 
 
 class AppBase(ABC):
@@ -24,7 +25,18 @@ class AppBase(ABC):
 
 
 class CellBase(ABC):
-    pass
+    @property
+    @abstractmethod
+    def coord(self) -> Tuple[int, int]:
+        pass
+
+    @abstractmethod
+    def is_alive(self) -> bool:
+        pass
+
+    @abstractmethod
+    def copy(self) -> 'CellBase':
+        pass
 
 
 class GameEngineBase(ABC):
