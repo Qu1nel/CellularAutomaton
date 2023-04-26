@@ -38,9 +38,9 @@ class CellBase(ABC):
 
 class GameEngineBase(ABC):
     @abstractmethod
-    def draw_area(self) -> None:
+    def process(self) -> None:
         pass
 
     @abstractmethod
-    def next_cycle(self) -> None:
+    def draw_area(self) -> None:
         pass
