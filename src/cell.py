@@ -22,14 +22,6 @@ class Cell(CellBase):
         """Property for taking __x and __y"""
         return self.__x, self.__y
 
-    def is_alive(self) -> bool:
-        """Returns the state of life of the cell.
-
-        Returns:
-            Status is the cell alive or not
-        """
-        return self.alive
-
     def copy(self) -> 'Cell':
         """Copies itself, creating a new cell
 

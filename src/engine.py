@@ -57,7 +57,7 @@ class GameEngine(GameEngineBase):
         logger.debug("Starting drawing game area in GameEngine.draw_area")
         for row in self.area:
             for cell in row:
-                if cell.is_alive():
+                if cell.alive:
                     pg.draw.rect(
                         surface=self.screen,
                         color=self.color_cell,
@@ -79,17 +79,17 @@ class GameEngine(GameEngineBase):
                     column = Y + dy if Y + dy > 0 else 0
                     row = X + dx if X + dx > 0 else 0
 
-                    number_living += self.previous_area[column][row].is_alive()
+                    number_living += self.previous_area[column][row].alive
 
                     column = Y - dy if Y - dy > 0 else 0
                     row = X - dx if X - dx > 0 else 0
 
-                    number_living += self.previous_area[column][row].is_alive()
+                    number_living += self.previous_area[column][row].alive
 
-                if cell.is_alive() and number_living not in (2, 3):
+                if cell.alive and number_living not in (2, 3):
                     x, y = cell.coord
                     self.area[y][x].alive = False
-                elif not cell.is_alive() and number_living == 3:
+                elif not cell.alive and number_living == 3:
                     x, y = cell.coord
                     self.area[y][x].alive = True
 

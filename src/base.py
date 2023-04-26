@@ -36,10 +36,6 @@ class CellBase(ABC):
         pass
 
     @abstractmethod
-    def is_alive(self) -> bool:
-        pass
-
-    @abstractmethod
     def copy(self) -> 'CellBase':
         pass
 
