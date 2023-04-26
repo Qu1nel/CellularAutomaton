@@ -1,5 +1,5 @@
 from random import randint
-from typing import Tuple, Generic, TypeVar, NoReturn, Optional
+from typing import Tuple, Generic, TypeVar
 
 import pygame as pg
 
@@ -21,7 +21,7 @@ class AppType(Generic[T]):
     screen: SurfaceType
     clock: Clock
 
-    def run(self) -> Optional[NoReturn]: ...
+    def run(self) -> None: ...
 
     def loop(self) -> None: ...
 

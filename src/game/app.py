@@ -1,5 +1,3 @@
-from typing import NoReturn, Optional
-
 import pygame as pg
 
 from pygame import SurfaceType
@@ -31,14 +29,14 @@ class App:
         logger.debug("Finish of class initialization {}", self.__class__.__name__)
 
     @staticmethod
-    def _match_type(event: EventType) -> Optional[NoReturn]:
+    def _match_type(event: EventType) -> None:
         """Compares events and, depending on its type, determines further actions.
 
         Args:
             event: The event can be from the keyboard or mouse.
 
         Returns:
-            None or can exit the application.
+            None
         """
         match event.type:
             case pg.QUIT:
@@ -94,7 +92,7 @@ class App:
             self.handle_events()
             self.clock.tick(FrameRate)
 
-    def run(self) -> Optional[NoReturn]:
+    def run(self) -> None:
         """Gameplay handler and exception maintenance."""
         try:
             self.loop()
