@@ -1,7 +1,9 @@
 from typing import Sequence, Tuple
 
+from . import base
 
-class Cell:
+
+class Cell(base.CellBase):
     __slots__ = ('__x', '__y', 'alive')
     alive: bool
     __x: int

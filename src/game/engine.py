@@ -1,10 +1,8 @@
-from typing import Tuple, Generic, TypeVar
+from typing import Tuple
 from random import randint
 
 import pygame as pg
 
-from pygame import SurfaceType
-from pygame.time import Clock
 from loguru import logger
 
 import config as c
@@ -12,32 +10,18 @@ import config as c
 from utils import quick_copy, RowCell, MatrixCell
 from cell import Cell
 
-T = TypeVar("T")
+from . import base
 
 
-class AppType(Generic[T]):
-    width: int
-    height: int
-    screen: SurfaceType
-    clock: Clock
-
-    def run(self) -> None: ...
-
-    def loop(self) -> None: ...
-
-    def draw(self) -> None: ...
-
-    def handle_events(self) -> None: ...
-
-
-class GameEngine:
+class GameEngine(base.GameEngineBase):
     __slots__ = ('app', 'screen', 'color_cell', 'previous_area', 'area')
+    app: base.AppBase
     screen: pg.Surface
     color_cell: c.Color
     previous_area: MatrixCell  # previous state of area
     area: MatrixCell  # current state of area
 
-    def __init__(self, app: AppType, screen: pg.Surface) -> None:
+    def __init__(self, app: base.AppBase, screen: pg.Surface) -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.app = app
         self.screen = screen

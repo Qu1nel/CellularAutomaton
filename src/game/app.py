@@ -8,9 +8,10 @@ from loguru import logger
 from utils import exit_from_app_with_code, handle_event_for_key_event, handle_event_for_mouse_event
 from config import Resolution, FrameRate, COLOR_BG
 from engine import GameEngine
+from . import base
 
 
-class App:
+class App(base.AppBase):
     __slots__ = ('width', 'height', 'screen', 'clock', 'GameEngine')
 
     width: int
@@ -23,7 +24,6 @@ class App:
         self.width = Resolution.Width
         self.height = Resolution.Height
         self.screen = pg.display.set_mode((self.width, self.height))
-        # noinspection PyTypeChecker
         self.GameEngine = GameEngine(app=self, screen=self.screen)
         self.clock = Clock()
         logger.debug("Finish of class initialization {}", self.__class__.__name__)

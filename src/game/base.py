@@ -3,6 +3,9 @@ from typing import Tuple
 
 
 class AppBase(ABC):
+    width: int
+    height: int
+
     @abstractmethod
     def handle_events(self) -> None:
         pass
@@ -25,6 +28,8 @@ class AppBase(ABC):
 
 
 class CellBase(ABC):
+    alive: bool
+
     @property
     @abstractmethod
     def coord(self) -> Tuple[int, int]:
