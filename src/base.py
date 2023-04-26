@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Tuple
+from typing import Tuple, Union
 
 
 class AppBase(ABC):
@@ -28,7 +28,7 @@ class AppBase(ABC):
 
 
 class CellBase(ABC):
-    alive: bool
+    alive: Union[bool, int]
     coord: Tuple[int, int]
 
     @abstractmethod

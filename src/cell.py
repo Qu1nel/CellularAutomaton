@@ -1,14 +1,14 @@
-from typing import Tuple
+from typing import Tuple, Union
 
 from base import CellBase
 
 
 class Cell(CellBase):
     __slots__ = ('coord', 'alive')
-    alive: bool
+    alive: Union[bool, int]
     coord: Tuple[int, int]
 
-    def __init__(self, coord: Tuple[int, int], alive: bool = False) -> None:
+    def __init__(self, coord: Tuple[int, int], alive: Union[bool, int] = False) -> None:
         self.alive = alive
         self.coord = coord
 
