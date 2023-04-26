@@ -40,4 +40,10 @@ class CellBase(ABC):
 
 
 class GameEngineBase(ABC):
-    pass
+    @abstractmethod
+    def draw_area(self) -> None:
+        pass
+
+    @abstractmethod
+    def next_cycle(self) -> None:
+        pass
