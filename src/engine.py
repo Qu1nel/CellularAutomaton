@@ -1,7 +1,6 @@
 import copy
+from typing import List
 from random import randint
-from typing import Tuple, List, TypeAlias
-from collections import namedtuple
 
 import numpy as np
 import pygame as pg
@@ -12,13 +11,9 @@ from pygame import SurfaceType
 
 import config as c
 
-from base import AppBase, GameEngineBase
 from config import Color
-
-ResultToDrawing: TypeAlias = List[Tuple[int, int]]
-CheckCells: TypeAlias = Tuple[np.ndarray, ResultToDrawing]
-
-Size = namedtuple("Size", ("width", "height"))
+from utils import Size, CheckCells
+from base import AppBase, GameEngineBase
 
 
 @njit(fastmath=True)

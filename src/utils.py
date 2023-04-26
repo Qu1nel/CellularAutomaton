@@ -1,12 +1,19 @@
 import argparse
 import sys
 
-from typing import Optional, NoReturn
+from collections import namedtuple
+from typing import Optional, NoReturn, TypeAlias, Tuple, List
 
 import pygame as pg
+import numpy as np
 
 from pygame.event import EventType
 from loguru import logger
+
+ResultToDrawing: TypeAlias = List[Tuple[int, int]]
+CheckCells: TypeAlias = Tuple[np.ndarray, ResultToDrawing]
+
+Size = namedtuple("Size", ("width", "height"))
 
 
 def setting_arguments_parser() -> argparse.Namespace:

@@ -8,9 +8,9 @@ from pygame import SurfaceType
 from loguru import logger
 
 from utils import exit_from_app_with_code, handle_event_for_key_event, handle_event_for_mouse_event
-from config import Color
+from base import AppBase, GameEngineBase
 from engine import GameEngine
-from base import AppBase
+from config import Color
 
 
 class App(AppBase):
@@ -18,6 +18,9 @@ class App(AppBase):
 
     width: int
     height: int
+    fps: int
+    bg_color: Union[Color, Tuple[int, int, int]]
+    GameEngine: GameEngineBase
     screen: SurfaceType  # Display surface (application screen)
     clock: Clock  # Sets a delay for the desired amount of FPS
 
