@@ -1,6 +1,7 @@
 import copy
 from random import randint
 from typing import Tuple, List, TypeAlias
+from collections import namedtuple
 
 import numpy as np
 import pygame as pg
@@ -16,6 +17,8 @@ from config import Color
 
 ResultToDrawing: TypeAlias = List[Tuple[int, int]]
 CheckCells: TypeAlias = Tuple[np.ndarray, ResultToDrawing]
+
+Size = namedtuple("Size", ("width", "height"))
 
 
 @njit(fastmath=True)
@@ -48,15 +51,14 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
 
 
 class GameEngine(GameEngineBase):
-    __slots__ = ('app', 'screen', 'color_cell', 'current_area', 'next_area', 'width_area', 'height_area', 'draw_rects')
+    __slots__ = ('app', 'screen', 'color_cell', 'current_area', 'next_area', 'width_area', 'size_area', 'draw_rects')
     app: AppBase
     screen: SurfaceType
     color_cell: Color
-    current_area: np.ndarray[np.ndarray[int]]
-    next_area: np.ndarray[np.ndarray[int]]
+    current_area: np.ndarray
+    next_area: np.ndarray
     draw_rects: List
-    width_area: int
-    height_area: int
+    size_area: Size
 
     def __init__(self, app: AppBase, screen: pg.Surface) -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
@@ -64,14 +66,16 @@ class GameEngine(GameEngineBase):
         self.screen = screen
         self.color_cell = c.COLOR_CELL
 
-        self.width_area = self.app.width // c.CELL_SIZE
-        self.height_area = self.app.height // c.CELL_SIZE
+        width_area = self.app.width // c.CELL_SIZE
+        height_area = self.app.height // c.CELL_SIZE
 
-        logger.info("Number of cells in width - {}", self.width_area)
-        logger.info("Number of cells in height - {}", self.height_area)
+        logger.info("Number of cells in width - {}", width_area)
+        logger.info("Number of cells in height - {}", height_area)
 
-        self.current_area = np.array([[randint(0, 1) for _ in range(self.width_area)] for _ in range(self.height_area)])
-        self.next_area = np.array([[0 for _ in range(self.width_area)] for _ in range(self.height_area)])
+        self.size_area = Size(width=width_area, height=height_area)
+
+        self.current_area = np.array([[randint(0, 1) for _ in range(width_area)] for _ in range(height_area)])
+        self.next_area = np.array([[0 for _ in range(width_area)] for _ in range(height_area)])
         self.draw_rects = []
 
         logger.debug("Finish of class initialization {}", self.__class__.__name__)
@@ -80,8 +84,8 @@ class GameEngine(GameEngineBase):
         self.next_area, self.draw_rects = check_cells(
             current_field=self.current_area,
             next_field=self.next_area,
-            width=self.width_area,
-            height=self.height_area
+            width=self.size_area.width,
+            height=self.size_area.height
         )
 
         self.current_area = copy.deepcopy(self.next_area)
