@@ -7,10 +7,9 @@ import pygame as pg
 
 from pygame.event import EventType
 from loguru import logger
+from base import CellBase
 
-from . import base
-
-RowCell: TypeAlias = List[base.CellBase]
+RowCell: TypeAlias = List[CellBase]
 MatrixCell: TypeAlias = List[RowCell]
 
 

@@ -8,20 +8,19 @@ from loguru import logger
 import config as c
 
 from utils import quick_copy, RowCell, MatrixCell
+from base import AppBase, GameEngineBase
 from cell import Cell
 
-from . import base
 
-
-class GameEngine(base.GameEngineBase):
+class GameEngine(GameEngineBase):
     __slots__ = ('app', 'screen', 'color_cell', 'previous_area', 'area')
-    app: base.AppBase
+    app: AppBase
     screen: pg.Surface
     color_cell: c.Color
     previous_area: MatrixCell  # previous state of area
     area: MatrixCell  # current state of area
 
-    def __init__(self, app: base.AppBase, screen: pg.Surface) -> None:
+    def __init__(self, app: AppBase, screen: pg.Surface) -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.app = app
         self.screen = screen

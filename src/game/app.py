@@ -8,10 +8,10 @@ from loguru import logger
 from utils import exit_from_app_with_code, handle_event_for_key_event, handle_event_for_mouse_event
 from config import Resolution, FrameRate, COLOR_BG
 from engine import GameEngine
-from . import base
+from base import AppBase
 
 
-class App(base.AppBase):
+class App(AppBase):
     __slots__ = ('width', 'height', 'screen', 'clock', 'GameEngine')
 
     width: int
