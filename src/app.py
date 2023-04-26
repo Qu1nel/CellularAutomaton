@@ -66,14 +66,13 @@ class App(AppBase):
 
     def draw(self) -> None:
         """Draws a picture on the display."""
-        logger.debug("In App.draw()")
         self.screen.fill(self.bg_color)
         self.GameEngine.draw_area()
         pg.display.update()
 
     def process(self) -> None:
         """Calculates necessary before trapping events"""
-        self.GameEngine.next_cycle()
+        self.GameEngine.process()
 
     def loop(self) -> None:
         """Endless* game loop.
