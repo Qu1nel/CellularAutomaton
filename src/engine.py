@@ -1,19 +1,20 @@
 import copy
-from typing import List
+
 from random import randint
+from typing import List
 
-import numpy as np
 import pygame as pg
+import numpy as np
 
-from numba import njit
-from loguru import logger
 from pygame import SurfaceType
+from loguru import logger
+from numba import njit
 
 import config as c
 
-from config import Color
-from utils import Size, CheckCells
 from base import AppBase, GameEngineBase
+from utils import Size, CheckCells
+from config import Color
 
 
 @njit(fastmath=True)

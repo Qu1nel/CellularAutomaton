@@ -1,8 +1,8 @@
 import argparse
 import sys
 
-from collections import namedtuple
 from typing import Optional, NoReturn, TypeAlias, Tuple, List
+from collections import namedtuple
 
 import pygame as pg
 import numpy as np
