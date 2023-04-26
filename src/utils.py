@@ -1,16 +1,12 @@
 import argparse
 import sys
 
-from typing import Optional, NoReturn, TypeAlias, List
+from typing import Optional, NoReturn
 
 import pygame as pg
 
 from pygame.event import EventType
 from loguru import logger
-from base import CellBase
-
-RowCell: TypeAlias = List[int]
-MatrixCell: TypeAlias = List[RowCell]
 
 
 def setting_arguments_parser() -> argparse.Namespace:
@@ -55,25 +51,3 @@ def exit_from_app_with_code(code: int = 0) -> NoReturn:
     logger.info("Exiting from app with code <{}>", code)
     pg.quit()
     sys.exit(code)
-
-
-def quick_copy(area_cell: MatrixCell) -> MatrixCell:
-    """Copies the playing field, creates a new instance playing field.
-
-    Args:
-        area_cell: Matrix of Cell (game area)
-
-    Returns:
-        Same game area - copy
-    """
-    logger.debug("In quick_copy()")
-    try:
-        logger.debug("Start copy game area")
-        result = [[cell for cell in row] for row in area_cell]
-    except Exception as exc:
-        logger.error("Error in quick_copy(). Details: {}", exc)
-        raise exc from None
-    else:
-        return result
-    finally:
-        logger.debug("Exiting from quick_copy()")
