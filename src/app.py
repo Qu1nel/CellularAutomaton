@@ -1,3 +1,5 @@
+from typing import Union, Tuple
+
 import pygame as pg
 
 from pygame.event import EventType
@@ -6,23 +8,25 @@ from pygame import SurfaceType
 from loguru import logger
 
 from utils import exit_from_app_with_code, handle_event_for_key_event, handle_event_for_mouse_event
-from config import Resolution, FrameRate, COLOR_BG
+from config import Color
 from engine import GameEngine
 from base import AppBase
 
 
 class App(AppBase):
-    __slots__ = ('width', 'height', 'screen', 'clock', 'GameEngine')
+    slots = ('width', 'height', 'screen', 'clock', 'GameEngine', 'fps', 'bg_color')
 
     width: int
     height: int
     screen: SurfaceType  # Display surface (application screen)
     clock: Clock  # Sets a delay for the desired amount of FPS
 
-    def __init__(self) -> None:
+    def __init__(self, width: int, height: int, fps: int, bg_color: Union[Color, Tuple[int, int, int]]) -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
-        self.width = Resolution.Width
-        self.height = Resolution.Height
+        self.width = width
+        self.height = height
+        self.fps = fps
+        self.bg_color = bg_color
         self.screen = pg.display.set_mode((self.width, self.height))
         self.GameEngine = GameEngine(app=self, screen=self.screen)
         self.clock = Clock()
@@ -63,7 +67,7 @@ class App(AppBase):
     def draw(self) -> None:
         """Draws a picture on the display."""
         logger.debug("In App.draw()")
-        self.screen.fill(COLOR_BG)
+        self.screen.fill(self.bg_color)
         self.GameEngine.draw_area()
         pg.display.update()
 
@@ -90,7 +94,7 @@ class App(AppBase):
             self.draw()
             self.process()
             self.handle_events()
-            self.clock.tick(FrameRate)
+            self.clock.tick(self.fps)
 
     def run(self) -> None:
         """Gameplay handler and exception maintenance."""
