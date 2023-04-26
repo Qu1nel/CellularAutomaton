@@ -75,7 +75,17 @@ class GameEngine(GameEngineBase):
 
         logger.debug("Finish of class initialization {}", self.__class__.__name__)
 
+    def draw_area(self) -> None:
+        """Draws the cells in self.area on the monitor."""
+        for x, y in self.draw_rects:
+            pg.draw.rect(
+                surface=self.screen,
+                color=self.color_cell,
+                rect=(x * c.CELL_SIZE, y * c.CELL_SIZE, c.CELL_SIZE - 1, c.CELL_SIZE - 1)
+            )
+
     def process(self) -> None:
+        """Calculates the next state of self.area from the current state."""
         self.next_area, self.draw_rects = check_cells(
             current_field=self.current_area,
             next_field=self.next_area,
@@ -84,11 +94,3 @@ class GameEngine(GameEngineBase):
         )
 
         self.current_area = copy.deepcopy(self.next_area)
-
-    def draw_area(self) -> None:
-        for x, y in self.draw_rects:
-            pg.draw.rect(
-                surface=self.screen,
-                color=self.color_cell,
-                rect=(x * c.CELL_SIZE, y * c.CELL_SIZE, c.CELL_SIZE - 1, c.CELL_SIZE - 1)
-            )
