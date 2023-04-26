@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence, Tuple
 
 
 class Cell:
@@ -16,7 +16,7 @@ class Cell:
         return f'Cell(alive={self.alive} coord={self.coord})'
 
     @property
-    def coord(self) -> tuple[int, int]:
+    def coord(self) -> Tuple[int, int]:
         """Property for taking __x and __y"""
         return self.__x, self.__y
 
