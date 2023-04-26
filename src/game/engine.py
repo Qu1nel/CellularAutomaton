@@ -50,6 +50,7 @@ class GameEngine:
         logger.info("Number of cells in height - {}", number_height_y)
 
         logger.debug("Start of filling area initialization")
+
         self.area = []
         for y in range(number_height_y):
             row: RowCell = []
@@ -65,11 +66,7 @@ class GameEngine:
         logger.debug("Finish of class initialization {}", self.__class__.__name__)
 
     def draw_area(self) -> None:
-        """Draws the cells in self.area on the monitor.
-
-        Returns:
-            None
-        """
+        """Draws the cells in self.area on the monitor."""
 
         def _normalized(coord: Tuple[int, int]) -> tuple[int, ...]:
             return tuple(i * c.CELL_SIZE for i in coord)
@@ -85,11 +82,7 @@ class GameEngine:
                     )
 
     def next_cycle(self) -> None:
-        """Calculates the next state of self.area from the current state.
-
-        Returns:
-            None
-        """
+        """Calculates the next state of self.area from the current state."""
         logger.debug("Start process next cycle for game area")
 
         self.previous_area = quick_copy(self.area)

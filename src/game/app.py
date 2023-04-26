@@ -63,11 +63,7 @@ class App:
             self._match_type(event)
 
     def draw(self) -> None:
-        """Draws a picture on the display.
-
-        Returns:
-            None
-        """
+        """Draws a picture on the display."""
         logger.debug("In App.draw()")
         self.screen.fill(COLOR_BG)
         self.GameEngine.draw_area()
@@ -80,8 +76,13 @@ class App:
     def loop(self) -> None:
         """Endless* game loop.
 
-        Handles events.
-        Update frame rate.
+        Draws an image on the screen.
+
+        Calculates the required steps for the game.
+
+        Catches events from the user.
+
+        Updates the frame rate.
 
         Returns:
             None
@@ -94,13 +95,7 @@ class App:
             self.clock.tick(FrameRate)
 
     def run(self) -> Optional[NoReturn]:
-        """Gameplay handler and exception maintenance.
-
-        Always exits the application via exit_from_app(<code>)
-
-        Returns:
-            Nothing
-        """
+        """Gameplay handler and exception maintenance."""
         try:
             self.loop()
         except KeyboardInterrupt:

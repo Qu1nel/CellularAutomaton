@@ -59,13 +59,13 @@ def exit_from_app(code: int = 0) -> NoReturn:
 
 
 def quick_copy(area_cell: MatrixCell) -> MatrixCell:
-    """Copies the playing field, creates a new instance.
+    """Copies the playing field, creates a new instance playing field.
 
     Args:
         area_cell: Matrix of Cell (game area)
 
     Returns:
-        Same game_area - copy
+        Same game area - copy
     """
     logger.debug("In quick_copy()")
     try:
