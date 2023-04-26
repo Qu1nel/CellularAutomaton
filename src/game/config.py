@@ -15,7 +15,9 @@ Below are the fields (variables) that you can change, but taking into account th
 
     * CELL_SIZE  // Size PxP pixels for one cell per field
 
-Version: 0.04
+    * FILE_LOG_NAME  // Name for the log file. Has a value when run with the --debug flag | -D
+
+Version: 0.05
 """
 from collections import namedtuple
 from typing import Tuple
@@ -44,3 +46,5 @@ COLOR_CELL: Color = Color(*ColorCell)
 
 # Cell size
 CELL_SIZE = CellSize
+
+FILE_LOG_NAME: str = "debug.log"
