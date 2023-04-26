@@ -29,11 +29,7 @@ class AppBase(ABC):
 
 class CellBase(ABC):
     alive: bool
-
-    @property
-    @abstractmethod
-    def coord(self) -> Tuple[int, int]:
-        pass
+    coord: Tuple[int, int]
 
     @abstractmethod
     def copy(self) -> 'CellBase':
