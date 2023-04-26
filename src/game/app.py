@@ -1,12 +1,12 @@
 import pygame as pg
 
-from pygame import SurfaceType
 from pygame.event import EventType
 from pygame.time import Clock
+from pygame import SurfaceType
 from loguru import logger
 
-from config import Resolution, FrameRate, COLOR_BG
 from utils import exit_from_app_with_code, handle_event_for_key_event, handle_event_for_mouse_event
+from config import Resolution, FrameRate, COLOR_BG
 from engine import GameEngine
 
 

@@ -1,5 +1,5 @@
-import sys
 import argparse
+import sys
 
 from typing import Optional, NoReturn, TypeAlias, List
 
@@ -8,9 +8,9 @@ import pygame as pg
 from pygame.event import EventType
 from loguru import logger
 
-from cell import Cell
+from base import CellBase
 
-RowCell: TypeAlias = List[Cell]
+RowCell: TypeAlias = List[CellBase]
 MatrixCell: TypeAlias = List[RowCell]
 
 

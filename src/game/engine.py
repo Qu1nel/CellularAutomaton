@@ -1,16 +1,16 @@
-from random import randint
 from typing import Tuple, Generic, TypeVar
+from random import randint
 
 import pygame as pg
 
-from loguru import logger
 from pygame import SurfaceType
 from pygame.time import Clock
+from loguru import logger
 
 import config as c
 
-from cell import Cell
 from utils import quick_copy, RowCell, MatrixCell
+from cell import Cell
 
 T = TypeVar("T")
 

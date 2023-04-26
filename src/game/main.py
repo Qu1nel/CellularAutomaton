@@ -1,7 +1,7 @@
 from loguru import logger
 
-from app import App
 from utils import setting_arguments_parser
+from app import App
 
 DEBUG: bool = setting_arguments_parser().debug
 
