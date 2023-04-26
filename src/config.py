@@ -26,7 +26,7 @@ WIDTH: int = 1920
 HEIGHT: int = 1080
 FPS: int = 144
 ColorCell: Tuple[int, int, int] = (241, 196, 15)  # Yellow almost
-CellSize: int = 7
+CellSize: int = 5
 
 # Below are the settings that it is not advisable to touch if you are not sure
 # exactly what you are changing.

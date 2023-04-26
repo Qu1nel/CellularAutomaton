@@ -9,7 +9,7 @@ from pygame.event import EventType
 from loguru import logger
 from base import CellBase
 
-RowCell: TypeAlias = List[CellBase]
+RowCell: TypeAlias = List[int]
 MatrixCell: TypeAlias = List[RowCell]
 
 
@@ -69,7 +69,7 @@ def quick_copy(area_cell: MatrixCell) -> MatrixCell:
     logger.debug("In quick_copy()")
     try:
         logger.debug("Start copy game area")
-        result = [[cell.copy() for cell in row] for row in area_cell]
+        result = [[cell for cell in row] for row in area_cell]
     except Exception as exc:
         logger.error("Error in quick_copy(). Details: {}", exc)
         raise exc from None
