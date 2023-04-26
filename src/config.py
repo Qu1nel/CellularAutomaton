@@ -17,7 +17,7 @@ Below are the fields (variables) that you can change, but taking into account th
 
     * FILE_LOG_NAME  // Name for the log file. Has a value when run with the --debug flag | -D
 
-Version: 0.05
+Version: 0.06
 """
 from collections import namedtuple
 from typing import Tuple
@@ -26,7 +26,7 @@ WIDTH: int = 1920
 HEIGHT: int = 1080
 FPS: int = 144
 ColorCell: Tuple[int, int, int] = (241, 196, 15)  # Yellow almost
-CellSize: int = 10
+CellSize: int = 7
 
 # Below are the settings that it is not advisable to touch if you are not sure
 # exactly what you are changing.
