@@ -51,8 +51,8 @@ class GameEngine(GameEngineBase):
     def draw_area(self) -> None:
         """Draws the cells in self.area on the monitor."""
 
-        def _normalized(coord: Tuple[int, int]) -> tuple[int, ...]:
-            return tuple(i * c.CELL_SIZE for i in coord)
+        def _normalized(coord: Tuple[int, int]) -> tuple[int, int]:
+            return coord[0] * c.CELL_SIZE, coord[1] * c.CELL_SIZE
 
         logger.debug("Starting drawing game area in GameEngine.draw_area")
         for row in self.area:
