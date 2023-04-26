@@ -1,1 +1,1 @@
-./src/game/main.py
+./src/main.py
