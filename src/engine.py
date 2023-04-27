@@ -17,6 +17,24 @@ from config import Color
 
 
 @njit(fastmath=True)
+def count_neighbors(field: np.ndarray, row: int, column: int, width_field: int, height_field: int) -> int:
+    neighbors = 0
+
+    for i, j in ((-1, 1), (0, 1), (1, 1), (1, 0)):
+        X = row + i
+        Y = column + j
+        if 0 <= Y < width_field and 0 <= X < height_field:
+            neighbors += field[X][Y]
+
+        X = row - i
+        Y = column - j
+        if 0 <= Y < width_field and 0 <= X < height_field:
+            neighbors += field[X][Y]
+
+    return neighbors
+
+
+@njit(fastmath=True)
 def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, height: int) -> CheckCells:
     """Counts for each cell how many living neighbors are nearby (3×3 cells).
 
@@ -44,16 +62,17 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
     """
     result_for_drawing = []
 
-    for x in range(width - 1):
-        for y in range(height - 1):
-            count_living = 0
-            for j in range(y - 1, y + 2):
-                for i in range(x - 1, x + 2):
-                    if current_field[j][i] == 1:
-                        count_living += 1
+    for x in range(width):
+        for y in range(height):
+            count_living = count_neighbors(
+                field=current_field,
+                row=y,
+                column=x,
+                width_field=width,
+                height_field=height
+            )
 
             if current_field[y][x] == 1:
-                count_living -= 1
                 if count_living in (2, 3):
                     next_field[y][x] = 1
                     result_for_drawing.append((x, y))
