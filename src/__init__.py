@@ -1,3 +1,9 @@
+from pathlib import Path
+
+__author__ = "Qu1nel"
+__version__ = 0.5
 __package__ = 'GameOfLife'
-__version__ = 0.4
-# TODO add __info__ file
+__license__ = Path(__file__).parent.with_name("LICENSE").read_text()
+__doc__ = Path(__file__).parent.with_name("README.md").read_text()
+
+del Path
