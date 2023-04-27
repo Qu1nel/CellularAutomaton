@@ -28,6 +28,7 @@ class App(AppBase):
         logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.width = width
         self.height = height
+        self.fps_chill = 3
         self.fps = fps
         self.bg_color = bg_color
         self.screen = pg.display.set_mode((self.width, self.height))
@@ -83,9 +84,9 @@ class App(AppBase):
 
         Draws an image on the screen.
 
-        Calculates the required steps for the game.
-
         Catches events from the user.
+
+        Calculates the required steps for the game.
 
         Updates the frame rate.
 
@@ -95,9 +96,9 @@ class App(AppBase):
         logger.debug("In App.loop()")
         while True:
             self.draw()
-            self.process()
             self.handle_events()
-            self.clock.tick(self.fps)
+            self.process()
+            self.clock.tick(self.fps if not self.pause else self.fps_chill)
 
     def run(self) -> None:
         """Gameplay handler and exception maintenance."""
