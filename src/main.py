@@ -1,4 +1,5 @@
 from loguru import logger
+import pygame
 
 from app import App
 from utils import setting_arguments_parser
@@ -23,6 +24,7 @@ else:
 def main() -> None:
     """The main function of GameOfLive."""
     logger.debug("In main() function")
+    pygame.init()
     game = App(*Resolution, fps=FrameRate, bg_color=COLOR_BG)
     game.run()
 
