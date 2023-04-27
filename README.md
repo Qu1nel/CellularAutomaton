@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://github.com/Qu1nel/TicTacToe/blob/git-page/.github/preview.png" width=380px>
+  <img src="https://github.com/Qu1nel/Life/blob/main/.github/preview.png" width=380px>
 </p>
 
 <p align="center">
-   <img src="https://img.shields.io/badge/Python-3.9%2B-blueviolet" alt="Python Version">
-   <img src="https://img.shields.io/github/v/release/Qu1nel/TicTacToe" alt="Version">
-   <img src="https://img.shields.io/github/license/Qu1nel/TicTacToe?color=g" alt="License" />
+   <img src="https://img.shields.io/badge/Python-3.10-blueviolet" alt="Python Version">
+   <img src="https://img.shields.io/github/v/release/Qu1nel/Life" alt="Version">
+   <img src="https://img.shields.io/github/license/Qu1nel/Life?color=g" alt="License" />
    <img src="https://img.shields.io/github/actions/workflow/status/Qu1nel/Life/pylint_mypy.yml?label=Linting&logo=github" alt="Linting"/>
 </p>
 
