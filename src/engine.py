@@ -18,6 +18,30 @@ from config import Color
 
 @njit(fastmath=True)
 def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, height: int) -> CheckCells:
+    """Counts for each cell how many living neighbors are nearby (3×3 cells).
+
+    Accepts the current state of the field and the next. Based on the current
+    one, the next state for next_field is calculated. Iterates over each cell
+    and for each cell checks all its 8 neighbors. If there are fewer neighbors
+    by the condition, then the cell dies and will not appear in next_filed.
+    Also, if a cell survives it seems, it is entered into
+    result_for_drawing array, which is sent to the draw_area() method and all
+    the cells in it will be drawn.
+
+    Args:
+        current_field: The current state of the playing field, according to
+                    which the next state will be calculated
+
+        next_field: The field that will be filled with the new state of the
+                    cells
+
+        width: Number indicating the width of the playing field
+        height: Number indicating the height of the playing field
+
+    Returns:
+        Calculated state for the next step, and an array of live cells that
+        will be drawn.
+    """
     result_for_drawing = []
 
     for x in range(width - 1):
