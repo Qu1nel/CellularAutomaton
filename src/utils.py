@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-from typing import Optional, NoReturn, TypeAlias, Tuple, List
+from typing import List, NoReturn, Optional, Tuple, TypeAlias
 from collections import namedtuple
 
 import pygame as pg
@@ -10,9 +10,11 @@ import numpy as np
 from pygame.event import EventType
 from loguru import logger
 
+# Types for function check_cells() in src/engine.py
 ResultToDrawing: TypeAlias = List[Tuple[int, int]]
 CheckCells: TypeAlias = Tuple[np.ndarray, ResultToDrawing]
 
+# Type for __init__ GameEngine in src/engine.py
 Size = namedtuple("Size", ("width", "height"))
 
 
@@ -58,3 +60,4 @@ def exit_from_app_with_code(code: int = 0) -> NoReturn:
     logger.info("Exiting from app with code <{}>", code)
     pg.quit()
     sys.exit(code)
+

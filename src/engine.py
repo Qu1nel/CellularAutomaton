@@ -6,7 +6,6 @@ from typing import List
 import pygame as pg
 import numpy as np
 
-from pygame import SurfaceType
 from loguru import logger
 from numba import njit
 
@@ -48,15 +47,16 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
 
 class GameEngine(GameEngineBase):
     __slots__ = ('app', 'screen', 'color_cell', 'current_area', 'next_area', 'width_area', 'size_area', 'draw_rects')
+
     app: AppBase
-    screen: SurfaceType
+    screen: pg.SurfaceType
     color_cell: Color
     current_area: np.ndarray
     next_area: np.ndarray
     draw_rects: List
     size_area: Size
 
-    def __init__(self, app: AppBase, screen: pg.Surface) -> None:
+    def __init__(self, app: AppBase, screen: pg.SurfaceType) -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.app = app
         self.screen = screen
