@@ -13,11 +13,11 @@ Below are the fields (variables) that you can change, but taking into account th
     * COLOR_BG  // The background color set by the RGB color model
     * COLOR_CELL  // The cell color set by the RGB color model
 
-    * CELL_SIZE  // Size PxP pixels for one cell per field
+    * CELL_SIZE  // Size PxP pixels for one cell per field (minimum is 2px)
 
     * FILE_LOG_NAME  // Name for the log file. Has a value when run with the --debug flag | -D
 
-Version: 0.08
+Version: 0.09
 """
 from collections import namedtuple
 from typing import Tuple
@@ -26,7 +26,7 @@ WIDTH: int = 1600
 HEIGHT: int = 900
 FPS: int = 30
 ColorCell: Tuple[int, int, int] = (241, 196, 15)  # Yellow almost
-CellSize: int = 5
+CellSize: int = 5  # Minimum value is 2
 
 # Below are the settings that it is not advisable to touch if you are not sure
 # exactly what you are changing.
