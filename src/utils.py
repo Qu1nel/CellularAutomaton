@@ -60,4 +60,3 @@ def exit_from_app_with_code(code: int = 0) -> NoReturn:
     logger.info("Exiting from app with code <{}>", code)
     pg.quit()
     sys.exit(code)
-
