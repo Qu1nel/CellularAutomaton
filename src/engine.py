@@ -18,6 +18,23 @@ from config import Color
 
 @njit(fastmath=True)
 def count_neighbors(field: np.ndarray, row: int, column: int, width_field: int, height_field: int) -> int:
+    """Efficient* counts all 8 neighbors for a cell
+
+    The function does not go through all 8 possible values around the cell, but
+    only through 4 of them, and it does it mirrored about the center, i.e.,
+    about the cell for which the calculation is made. Thereby reducing
+    the number of iterations from 9 maximum possible to 4.
+
+    Args:
+        field: The field on which the cells are located
+        row: Cell x coordinate for which neighbors are calculated
+        column: Cell y coordinate for which neighbors are calculated
+        width_field: Field width – boundary for calculations
+        height_field: Field height – boundary for calculations
+
+    Returns:
+        The number of living cells in a cell with x and y coordinates.
+    """
     neighbors = 0
 
     for i, j in ((-1, 1), (0, 1), (1, 1), (1, 0)):
@@ -64,6 +81,7 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
 
     for x in range(width):
         for y in range(height):
+            # Counts the number of live neighbors in a 3×3 range
             count_living = count_neighbors(
                 field=current_field,
                 row=y,
@@ -72,6 +90,7 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
                 height_field=height
             )
 
+            # Apply rules for number of live cells nearby
             if current_field[y][x] == 1:
                 if count_living in (2, 3):
                     next_field[y][x] = 1
