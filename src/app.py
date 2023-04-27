@@ -53,7 +53,7 @@ class App(AppBase):
                 logger.info("The user clicked on the key")
                 handle_event_for_key_event(event, self)
             case pg.MOUSEBUTTONDOWN:
-                logger.info("The user clicked on the mouse")
+                logger.info("The user interacts with the mouse")
                 handle_event_for_mouse_event(event)
 
     def handle_events(self) -> None:
