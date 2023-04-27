@@ -11,3 +11,4 @@ disable=
     E1101,  # no-member
     R0801,  # duplicate-code
     R0903,  # too-few-public-methods
+    R0902,  # too-many-instance-attributes
