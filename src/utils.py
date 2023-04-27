@@ -10,6 +10,8 @@ import numpy as np
 from pygame.event import EventType
 from loguru import logger
 
+from base import AppBase
+
 # Types for function check_cells() in src/engine.py
 ResultToDrawing: TypeAlias = List[Tuple[int, int]]
 CheckCells: TypeAlias = Tuple[np.ndarray, ResultToDrawing]
@@ -30,7 +32,7 @@ def setting_arguments_parser() -> argparse.Namespace:
     return args
 
 
-def handle_event_for_key_event(event: EventType) -> Optional[NoReturn]:
+def handle_event_for_key_event(event: EventType, app: AppBase) -> Optional[NoReturn]:
     """Catches events from the keyboard."""
     logger.debug("Event received from the keyboard - {}", event)
     key: int = event.key
@@ -38,6 +40,9 @@ def handle_event_for_key_event(event: EventType) -> Optional[NoReturn]:
         case pg.K_ESCAPE:
             logger.info("ESC was pressed")
             exit_from_app_with_code(0)
+        case pg.K_SPACE:
+            logger.info("SPACE was pressed")
+            app.pause = not app.pause
 
 
 def handle_event_for_mouse_event(event: EventType) -> None:

@@ -14,7 +14,7 @@ from config import Color
 
 
 class App(AppBase):
-    slots = ('width', 'height', 'screen', 'clock', 'GameEngine', 'fps', 'bg_color')
+    slots = ('width', 'height', 'screen', 'clock', 'GameEngine', 'fps', 'bg_color', 'pause')
 
     width: int
     height: int
@@ -33,10 +33,10 @@ class App(AppBase):
         self.screen = pg.display.set_mode((self.width, self.height))
         self.GameEngine = GameEngine(app=self, screen=self.screen)
         self.clock = Clock()
+        self.pause = False
         logger.debug("Finish of class initialization {}", self.__class__.__name__)
 
-    @staticmethod
-    def _match_type(event: EventType) -> None:
+    def _match_type(self, event: EventType) -> None:
         """Compares events and, depending on its type, determines further actions.
 
         Args:
@@ -51,7 +51,7 @@ class App(AppBase):
                 exit_from_app_with_code(0)
             case pg.KEYDOWN:
                 logger.info("The user clicked on the key")
-                handle_event_for_key_event(event)
+                handle_event_for_key_event(event, self)
             case pg.MOUSEBUTTONDOWN:
                 logger.info("The user clicked on the mouse")
                 handle_event_for_mouse_event(event)
@@ -75,7 +75,8 @@ class App(AppBase):
 
     def process(self) -> None:
         """Calculates necessary before trapping events"""
-        self.GameEngine.process()
+        if not self.pause:
+            self.GameEngine.process()
 
     def loop(self) -> None:
         """Endless* game loop.

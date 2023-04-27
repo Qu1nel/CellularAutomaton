@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 class AppBase(ABC):
     width: int
     height: int
+    pause: bool
 
     @abstractmethod
     def handle_events(self) -> None:
