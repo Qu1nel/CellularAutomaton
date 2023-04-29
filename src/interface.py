@@ -48,6 +48,15 @@ class Interface(InterfaceBase):
         pass
 
     def draw_fps(self, frame_per_second: int) -> None:
+        """Draws FPS on the screen in the upper right corner of the game.
+
+        Args:
+            frame_per_second: Just a number that will be displayed as fps
+                on the screen.
+
+        Returns:
+            None
+        """
         radius = int(self.width * 0.04)
         height = self.height * 0.08
 
