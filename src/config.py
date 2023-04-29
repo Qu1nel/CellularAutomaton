@@ -13,20 +13,21 @@ Below are the fields (variables) that you can change, but taking into account th
     * COLOR_BG  // The background color set by the RGB color model
     * COLOR_CELL  // The cell color set by the RGB color model
 
-    * CELL_SIZE  // Size PxP pixels for one cell per field (minimum is 2px)
+    * CELL_SIZE  // Size P×P pixels for one cell per field (minimum is 2px)
 
     * FILE_LOG_NAME  // Name for the log file. Has a value when run with the --debug flag | -D
 
-Version: 0.09
+Version: 0.10
 """
 from collections import namedtuple
 from typing import Tuple
 
-WIDTH: int = 1600
-HEIGHT: int = 900
+WIDTH_APP: int = 1600
+HEIGHT_APP: int = 900
 FPS: int = 30
-ColorCell: Tuple[int, int, int] = (241, 196, 15)  # Yellow almost
-CellSize: int = 5  # Minimum value is 2
+cell_color: Tuple[int, int, int] = (241, 196, 15)  # Yellow almost
+bg_color: Tuple[int, int, int] = (50, 50, 50)  # Dark Gray
+cell_size_px: int = 5  # Minimum value is 2
 
 # Below are the settings that it is not advisable to touch if you are not sure
 # exactly what you are changing.
@@ -34,17 +35,17 @@ CellSize: int = 5  # Minimum value is 2
 
 # Resolution window of app
 WindowResolutionApp = namedtuple('WindowResolutionApp', ('Width', 'Height'))
-Resolution = WindowResolutionApp(Width=WIDTH, Height=HEIGHT)
+RESOLUTION_APP = WindowResolutionApp(Width=WIDTH_APP, Height=HEIGHT_APP)
 
 # Frame rate for app
-FrameRate = FPS
+FRAME_RATE = FPS
 
 # RGB Color Model
 Color = namedtuple("Color", ("R", "G", "B"))
 COLOR_BG = Color(R=50, G=50, B=50)
-COLOR_CELL: Color = Color(*ColorCell)
+COLOR_CELL = Color(*cell_color)
 
 # Cell size
-CELL_SIZE = CellSize
+CELL_SIZE = cell_size_px
 
 FILE_LOG_NAME: str = "debug.log"

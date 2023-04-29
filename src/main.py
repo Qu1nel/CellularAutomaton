@@ -3,7 +3,7 @@ import pygame
 
 from app import App
 from utils import setting_arguments_parser
-from config import Resolution, FrameRate, COLOR_BG
+from config import RESOLUTION_APP, FRAME_RATE, COLOR_BG
 
 DEBUG: bool = setting_arguments_parser().debug
 
@@ -25,7 +25,8 @@ def main() -> None:
     """The main function of GameOfLive."""
     logger.debug("In main() function")
     pygame.init()
-    game = App(*Resolution, fps=FrameRate, bg_color=COLOR_BG)
+    # *RESOLUTION_APP -> width, height
+    game = App(*RESOLUTION_APP, fps=FRAME_RATE, bg_color=COLOR_BG)
     game.run()
 
 
