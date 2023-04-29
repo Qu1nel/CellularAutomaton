@@ -83,7 +83,8 @@ class Interface(InterfaceBase):
         """Draws a menu containing buttons on the left
 
         The menu can be hidden by clicking on the arrow in the lower right
-        corner of the menu.
+        corner of the menu. You can also open by clicking on the button at
+        the left border of the screen if self.hide_menu is True.
 
         The menu is drawn relative to the size of the window. It all depends
         on the length and width of the window.
@@ -96,7 +97,6 @@ class Interface(InterfaceBase):
                 rect=self._rect_menu,
                 border_radius=self._radius
             )
-
             pg.draw.circle(
                 surface=self.screen,
                 color=COLOR_INTERFACE,
