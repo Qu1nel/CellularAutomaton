@@ -85,9 +85,13 @@ class App(AppBase):
         """Draws a picture on the display."""
         self.screen.fill(self.bg_color)
         self.GameEngine.draw_area()
+
+        self.interface.draw_menu()
+
         if not self.hide_fps:
             current_fps = int(self.clock.get_fps())
             self.interface.draw_fps(frame_per_second=current_fps)
+
         pg.display.update()
 
     def process(self) -> None:

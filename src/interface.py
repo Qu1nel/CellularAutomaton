@@ -81,6 +81,13 @@ class Interface(InterfaceBase):
         )
 
         font = pg.font.SysFont("arial", int(height / 3))
-        img = font.render(f'fps {frame_per_second}', True, Colors.GREEN.value)
+
+        # Draw red fps if it's too low
+        if frame_per_second <= 15:
+            color = Colors.RED.value
+        else:
+            color = Colors.GREEN.value
+
+        img = font.render(f'fps {frame_per_second}', True, color)
 
         self.screen.blit(img, (self.width * 0.952, self.height * 0.004))
