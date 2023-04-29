@@ -1,9 +1,9 @@
-from typing import Tuple, Union, TypeAlias
 from enum import Enum
+from typing import Tuple, TypeAlias, Union
 
 import pygame as pg
 
-from base import InterfaceBase, RectBase, Buttons
+from base import Buttons, InterfaceBase, RectBase
 from config import COLOR_INTERFACE
 
 Number: TypeAlias = Union[int, float]

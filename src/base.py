@@ -1,5 +1,5 @@
-from typing import Union, Optional, Tuple
 from abc import ABC, abstractmethod
+from typing import Optional, Tuple, Union
 
 import pygame as pg
 

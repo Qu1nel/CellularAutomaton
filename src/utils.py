@@ -1,14 +1,12 @@
 import argparse
 import sys
-
-from typing import List, NoReturn, Optional, Tuple, TypeAlias
 from collections import namedtuple
+from typing import List, NoReturn, Optional, Tuple, TypeAlias
 
-import pygame as pg
 import numpy as np
-
-from pygame.event import EventType
+import pygame as pg
 from loguru import logger
+from pygame.event import EventType
 
 from base import AppBase
 

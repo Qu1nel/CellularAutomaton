@@ -1,9 +1,9 @@
-from loguru import logger
 import pygame
+from loguru import logger
 
 from app import App
+from config import COLOR_BG, FRAME_RATE, RESOLUTION_APP
 from utils import setting_arguments_parser
-from config import RESOLUTION_APP, FRAME_RATE, COLOR_BG
 
 ARGV = setting_arguments_parser()
 HIDE_FPS: bool = ARGV.hide_fps
