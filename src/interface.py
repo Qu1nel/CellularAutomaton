@@ -60,10 +60,10 @@ class Interface(InterfaceBase):
             None
         """
         radius = int(self.width * 0.04)
-        height = self.height * 0.08
+        height = int(self.height * 0.08)
 
-        width_point = self.width * 0.94
-        height_point = -(height / 2)
+        width_point = int(self.width * 0.94)
+        height_point = -int((height / 2))
 
         pg.draw.rect(
             surface=self.screen,
