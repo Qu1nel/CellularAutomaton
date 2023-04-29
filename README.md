@@ -34,6 +34,19 @@ All python dependencies specified in the file [requirements.txt](./requirements.
 
 Pressing the space bar will ensure that the game stops until the next key is pressed.
 
+---
+
+### Flags
+
+#### --Debug
+If your game crashes and you want to understand why this is happening, or maybe you just want to see the entire
+event log, then specify the `--debug` or `-D` flag. This will allow the game to enable internal logging, which will
+be saved to the debug.log file in the `src/log` directory (generated automatically).
+
+```bash
+python ./main.py --debug  # Enable game logging
+```
+
 ## Developers
 
 - [Qu1nel](https://github.com/Qu1nel)
