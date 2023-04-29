@@ -28,7 +28,7 @@ def main() -> None:
     logger.debug("In main() function")
     pygame.init()
     # *RESOLUTION_APP -> width, height
-    game = App(*RESOLUTION_APP, fps=FRAME_RATE, bg_color=COLOR_BG)
+    game = App(*RESOLUTION_APP, fps=FRAME_RATE, bg_color=COLOR_BG, hide_fps=HIDE_FPS)
     game.run()
 
 

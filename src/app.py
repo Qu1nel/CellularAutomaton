@@ -1,4 +1,4 @@
-from typing import Union, Tuple
+from typing import Union, Tuple, TypeAlias
 
 import pygame as pg
 
@@ -11,7 +11,9 @@ from utils import exit_from_app_with_code, handle_event_for_key_event, handle_ev
 from base import AppBase, GameEngineBase, InterfaceBase
 from interface import Interface
 from engine import GameEngine
-from config import Color
+from config import Color as _Color
+
+Color: TypeAlias = Union[_Color, Tuple[int, int, int]]
 
 
 class App(AppBase):
@@ -19,6 +21,7 @@ class App(AppBase):
 
     width: int
     height: int
+    hide_fps: bool
     fps_chill: int
     fps: int
     pause: bool
@@ -28,11 +31,12 @@ class App(AppBase):
     interface: InterfaceBase
     clock: Clock  # Sets a delay for the desired amount of FPS
 
-    def __init__(self, width: int, height: int, fps: int, bg_color: Union[Color, Tuple[int, int, int]]) -> None:
+    def __init__(self, width: int, height: int, fps: int, bg_color: Color, hide_fps: bool = False) -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.width = width
         self.height = height
 
+        self.hide_fps = hide_fps
         self.fps_chill = 3
         self.fps = fps
         self.pause = False
@@ -82,9 +86,9 @@ class App(AppBase):
         """Draws a picture on the display."""
         self.screen.fill(self.bg_color)
         self.GameEngine.draw_area()
-        self.interface.draw_fps(
-            frame_per_second=int(self.clock.get_fps())
-        )
+        if not self.hide_fps:
+            current_fps = int(self.clock.get_fps())
+            self.interface.draw_fps(frame_per_second=current_fps)
         pg.display.update()
 
     def process(self) -> None:
