@@ -4,6 +4,7 @@ from enum import Enum
 import pygame as pg
 
 from base import InterfaceBase, RectBase, Buttons
+from config import COLOR_INTERFACE
 
 Number: TypeAlias = Union[int, float]
 
@@ -47,4 +48,28 @@ class Interface(InterfaceBase):
         pass
 
     def draw_fps(self, frame_per_second: int) -> None:
-        pass
+        radius = int(self.width * 0.04)
+        height = self.height * 0.08
+
+        width_point = self.width * 0.94
+        height_point = -(height / 2)
+
+        pg.draw.rect(
+            surface=self.screen,
+            color=COLOR_INTERFACE,
+            rect=(width_point, height_point, 1000, height),
+            border_radius=radius
+        )
+
+        pg.draw.rect(
+            surface=self.screen,
+            color=Colors.BLACK.value,
+            rect=(width_point, height_point, 1000, height),
+            border_radius=radius,
+            width=2
+        )
+
+        font = pg.font.SysFont("arial", int(height / 3))
+        img = font.render(f'fps {frame_per_second}', True, Colors.GREEN.value)
+
+        self.screen.blit(img, (self.width * 0.952, self.height * 0.004))
