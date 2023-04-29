@@ -33,6 +33,17 @@ class Rect(RectBase):
         return self.left, self.top, self.width, self.height
 
 
+class Button(Rect):
+    name_button: str  # The name of the button, what it is responsible for
+
+    def __init__(self, name_button, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.name = name_button
+
+    def collidepoint(self, x: int, y: int) -> bool:
+        return self.left <= x <= self.left + self.width and self.top <= y <= self.top + self.height
+
+
 class Interface(InterfaceBase):
     def __init__(self, screen: pg.SurfaceType, width: int, height: int):
         self.screen = screen
@@ -40,10 +51,34 @@ class Interface(InterfaceBase):
         self.width = width
         self.height = height
 
+        self.hide_menu = False
+        self.buttons_menu = Buttons()
+        self._init_menu()
+
         self.buttons = Buttons()
+        self._init_buttons()
 
         self._draw_bg_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=COLOR_INTERFACE)
         self._draw_frame_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=Colors.BLACK.value)
+
+    def _init_menu(self) -> None:
+        """Initializes the position and properties of the menu."""
+        self._height_menu = int(self.height * 0.16 * (len(self.buttons_menu) + 1))
+        self._width_menu = int(self.width * 0.08)
+        self._radius = int(self._width_menu * 0.15)
+        self._x_menu = self.width * 0.01
+        self._y_menu = self.height / 2 - self._height_menu / 2
+        self._rect_menu = pg.Rect(self._x_menu, self._y_menu, self._width_menu, self._height_menu)
+
+    def _init_buttons(self) -> None:
+        """Initializes buttons."""
+        self.buttons.hide_menu = Button(
+            name_button="Hide menu",
+            left=self._x_menu + self._width_menu - self._radius,
+            top=self._y_menu + self._height_menu - self._height_menu * 0.01,
+            width=self._radius * 2,
+            height=self._radius * 2
+        )
 
     def draw_menu(self) -> None:
         """Draws a menu containing buttons on the left
@@ -57,25 +92,21 @@ class Interface(InterfaceBase):
         Returns:
             None
         """
-        height_menu = int(self.height * 0.16 * (len(self.buttons) + 1))  # Depends on the number of buttons in the menu
-        width_menu = int(self.width * 0.08)
+        if not self.hide_menu:
+            self._draw_bg_rect_on_display(
+                rect=self._rect_menu,
+                border_radius=self._radius
+            )
 
-        radius = int(width_menu * 0.15)
+            pg.draw.circle(
+                surface=self.screen,
+                color=COLOR_INTERFACE,
+                center=(self._x_menu + self._width_menu,
+                        self._y_menu + (self._height_menu / 2) * 2 + self.width * 0.01),
+                radius=self._radius
+            )
 
-        x_menu = self.width * 0.01
-        y_menu = self.height / 2 - height_menu / 2
-
-        self._draw_bg_rect_on_display(
-            rect=(x_menu, y_menu, width_menu, height_menu),
-            border_radius=radius
-        )
-
-        pg.draw.circle(
-            surface=self.screen,
-            color=COLOR_INTERFACE,
-            center=(x_menu + width_menu, y_menu + (height_menu / 2) * 2 + self.width * 0.01),
-            radius=radius
-        )
+        pg.draw.rect(surface=self.screen, color=Colors.RED.value, rect=self.buttons.hide_menu.coord, width=2)
 
     def draw_buttons(self) -> None:
         pass
