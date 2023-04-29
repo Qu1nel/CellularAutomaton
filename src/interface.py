@@ -1,4 +1,5 @@
 from enum import Enum
+from functools import partial
 from typing import Tuple, TypeAlias, Union
 
 import pygame as pg
@@ -43,6 +44,9 @@ class Interface(InterfaceBase):
 
         self.buttons = Buttons()
 
+        self._draw_bg_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=COLOR_INTERFACE)
+        self._draw_frame_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=Colors.BLACK.value)
+
     def draw_menu(self) -> None:
         pass
 
@@ -65,16 +69,12 @@ class Interface(InterfaceBase):
         width_point = int(self.width * 0.94)
         height_point = -int((height / 2))
 
-        pg.draw.rect(
-            surface=self.screen,
-            color=COLOR_INTERFACE,
+        self._draw_bg_rect_on_display(
             rect=(width_point, height_point, 1000, height),
             border_radius=radius
         )
 
-        pg.draw.rect(
-            surface=self.screen,
-            color=Colors.BLACK.value,
+        self._draw_frame_rect_on_display(
             rect=(width_point, height_point, 1000, height),
             border_radius=radius,
             width=2
