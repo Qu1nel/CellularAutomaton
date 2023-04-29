@@ -82,6 +82,7 @@ class App(AppBase):
         """Draws a picture on the display."""
         self.screen.fill(self.bg_color)
         self.GameEngine.draw_area()
+        self.interface.draw_menu()
         self.interface.draw_fps(
             frame_per_second=int(self.clock.get_fps())
         )

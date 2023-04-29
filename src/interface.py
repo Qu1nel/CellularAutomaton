@@ -1,4 +1,5 @@
 from typing import Tuple, Union, TypeAlias
+from functools import partial
 from enum import Enum
 
 import pygame as pg
@@ -41,8 +42,29 @@ class Interface(InterfaceBase):
 
         self.buttons = Buttons()
 
+        self._draw_bg_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=COLOR_INTERFACE)
+        self._draw_frame_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=Colors.BLACK.value)
+
     def draw_menu(self) -> None:
-        pass
+        height_menu = int(self.height * 0.16 * (len(self.buttons) + 1))  # Depends on the number of buttons in the menu
+        width_menu = int(self.width * 0.08)
+
+        radius = int(width_menu * 0.15)
+
+        x_menu = self.width * 0.01
+        y_menu = self.height / 2 - height_menu / 2
+
+        self._draw_bg_rect_on_display(
+            rect=(x_menu, y_menu, width_menu, height_menu),
+            border_radius=radius
+        )
+
+        pg.draw.circle(
+            surface=self.screen,
+            color=COLOR_INTERFACE,
+            center=(x_menu + width_menu, y_menu + (height_menu / 2) * 2 + self.width * 0.01),
+            radius=radius
+        )
 
     def draw_buttons(self) -> None:
         pass
