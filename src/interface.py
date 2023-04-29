@@ -46,6 +46,17 @@ class Interface(InterfaceBase):
         self._draw_frame_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=Colors.BLACK.value)
 
     def draw_menu(self) -> None:
+        """Draws a menu containing buttons on the left
+
+        The menu can be hidden by clicking on the arrow in the lower right
+        corner of the menu.
+
+        The menu is drawn relative to the size of the window. It all depends
+        on the length and width of the window.
+
+        Returns:
+            None
+        """
         height_menu = int(self.height * 0.16 * (len(self.buttons) + 1))  # Depends on the number of buttons in the menu
         width_menu = int(self.width * 0.08)
 
