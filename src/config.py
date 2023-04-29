@@ -17,11 +17,12 @@ Below are the fields (variables) that you can change, but taking into account th
 
     * FILE_LOG_NAME  // Name for the log file. Has a value when run with the --debug flag | -D
 
-Version: 0.10
+Version: 0.11
 """
 from collections import namedtuple
 from typing import Tuple
 
+# For correct operation of interface rendering, please use wide format resolutions. 4:3, 1:1 not supported
 WIDTH_APP: int = 1600
 HEIGHT_APP: int = 900
 FPS: int = 30
@@ -44,6 +45,7 @@ FRAME_RATE = FPS
 Color = namedtuple("Color", ("R", "G", "B"))
 COLOR_BG = Color(R=50, G=50, B=50)
 COLOR_CELL = Color(*cell_color)
+COLOR_INTERFACE = Color(R=30, G=39, B=46)
 
 # Cell size
 CELL_SIZE = cell_size_px

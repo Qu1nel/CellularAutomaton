@@ -1,10 +1,76 @@
+from typing import Union, Optional, Tuple
 from abc import ABC, abstractmethod
+
+import pygame as pg
+
+
+class Buttons(dict):
+    """Dot.notation access to dictionary attributes"""
+    __getattr__ = dict.get
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
+
+
+class RectBase:
+    left: Union[int, float]
+    top: Union[int, float]
+    width: Union[int, float]
+    height: Union[int, float]
+
+    radius: Optional[int] = None
+
+    @property
+    @abstractmethod
+    def coord(self) -> Tuple[int, int, int, int]:
+        pass
+
+    @abstractmethod
+    def set_radius(self, param: int) -> None:
+        pass
+
+
+class InterfaceBase(ABC):
+    screen: pg.SurfaceType
+
+    width: int
+    height: int
+
+    buttons: Buttons
+
+    @abstractmethod
+    def draw_menu(self) -> None:
+        pass
+
+    @abstractmethod
+    def draw_buttons(self) -> None:
+        pass
+
+    @abstractmethod
+    def draw_fps(self, frame_per_second: int) -> None:
+        pass
+
+
+class GameEngineBase(ABC):
+    @abstractmethod
+    def process(self) -> None:
+        pass
+
+    @abstractmethod
+    def draw_area(self) -> None:
+        pass
 
 
 class AppBase(ABC):
     width: int
     height: int
+
     pause: bool
+    fps: int
+
+    screen: pg.SurfaceType
+
+    GameEngine: GameEngineBase
+    interface: InterfaceBase
 
     @abstractmethod
     def handle_events(self) -> None:
@@ -24,14 +90,4 @@ class AppBase(ABC):
 
     @abstractmethod
     def run(self) -> None:
-        pass
-
-
-class GameEngineBase(ABC):
-    @abstractmethod
-    def process(self) -> None:
-        pass
-
-    @abstractmethod
-    def draw_area(self) -> None:
         pass
