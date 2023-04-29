@@ -24,11 +24,13 @@ class Rect(RectBase):
         self.width = width
         self.height = height
 
+        self.radius = -1
+
     def set_radius(self, value: int) -> None:
         self.radius = value
 
     @property
-    def coord(self) -> Tuple[int, int, int, int]:
+    def coord(self) -> Tuple[Number, Number, Number, Number]:
         return self.left, self.top, self.width, self.height
 
 
