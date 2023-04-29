@@ -45,12 +45,16 @@ def handle_event_for_key_event(event: EventType, app: AppBase) -> Optional[NoRet
             app.pause = not app.pause
 
 
-def handle_event_for_mouse_event(event: EventType) -> None:
+def handle_event_for_mouse_event(event: EventType, app: AppBase) -> None:
     """Catches events from the mouse."""
     logger.debug("Event received from the mouse - {}", event)
     button: int = event.button
+    position: Tuple[int, int] = event.pos
     if button == 1:
         logger.info("The LMB was pressed")
+        if app.interface.buttons.hide_menu.collidepoint(*position) and app.interface.hide_menu is False:
+            logger.info("Click on \"Hide Menu\"")
+            app.interface.hide_menu = True
 
 
 def exit_from_app_with_code(code: int = 0) -> NoReturn:
