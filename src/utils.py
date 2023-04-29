@@ -28,6 +28,7 @@ def setting_arguments_parser() -> argparse.Namespace:
         the dependencies specified in README.md, then set the --debug flag"
     )
     parser.add_argument('-D', '--debug', action='store_true', help="Enables game logging")
+    parser.add_argument('-H', '--hide-fps', action='store_true', help="Disable showing fps in game")
     args = parser.parse_args()
     return args
 

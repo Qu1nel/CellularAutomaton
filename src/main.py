@@ -5,7 +5,9 @@ from app import App
 from utils import setting_arguments_parser
 from config import RESOLUTION_APP, FRAME_RATE, COLOR_BG
 
-DEBUG: bool = setting_arguments_parser().debug
+ARGV = setting_arguments_parser()
+HIDE_FPS: bool = ARGV.hide_fps
+DEBUG: bool = ARGV.debug
 
 if DEBUG is True:
     from pathlib import Path
