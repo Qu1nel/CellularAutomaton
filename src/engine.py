@@ -1,6 +1,6 @@
 import copy
 from random import randint
-from typing import List
+from typing import List, Literal
 
 import numpy as np
 import pygame as pg
@@ -14,7 +14,7 @@ from utils import CheckCells, Size
 
 
 @njit(fastmath=True)
-def count_neighbors(field: np.ndarray, row: int, column: int, width_field: int, height_field: int) -> int:
+def count_neighbors_Neumann(field: np.ndarray, row: int, column: int, width_field: int, height_field: int) -> int:
     """Efficient* counts all 8 neighbors for a cell
 
     The function does not go through all 8 possible values around the cell, but
@@ -49,7 +49,44 @@ def count_neighbors(field: np.ndarray, row: int, column: int, width_field: int, 
 
 
 @njit(fastmath=True)
-def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, height: int) -> CheckCells:
+def count_neighbors_Moore(field: np.ndarray, row: int, column: int, width_field: int, height_field: int) -> int:
+    """Efficient* counts only 4 neighbors for a cell
+    
+    Like the count_neighbors_Neumann function, it also counts the cell's
+    neighbors. But it counts only those who are located on the same axis
+    as the central cell, i.e. it counts only 4 of its neighbors. At what
+    using only 1 iterations for this.
+
+    Args:
+        field: The field on which the cells are located
+        row: Cell x coordinate for which neighbors are calculated
+        column: Cell y coordinate for which neighbors are calculated
+        width_field: Field width – boundary for calculations
+        height_field: Field height – boundary for calculations
+
+    Returns:
+        The number of living cells in a cell with x and y coordinates.
+    """
+    neighbors = 0
+
+    i, j = 0, 1
+
+    X = row + i
+    Y = column + j
+    if 0 <= Y < width_field and 0 <= X < height_field:
+        neighbors += field[X][Y]
+
+    X = row - i
+    Y = column - j
+    if 0 <= Y < width_field and 0 <= X < height_field:
+        neighbors += field[X][Y]
+
+    return neighbors
+
+
+@njit(fastmath=True)
+def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, height: int,
+                mode: Literal['Moore', 'Neumann'] = 'Moore') -> CheckCells:
     """Counts for each cell how many living neighbors are nearby (3×3 cells).
 
     Accepts the current state of the field and the next. Based on the current
@@ -69,6 +106,10 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
 
         width: Number indicating the width of the playing field
         height: Number indicating the height of the playing field
+        mode: Mod defining the principle of counting cell neighbors
+        
+    Raises:
+        ValueError: If `mode` argument was not passed.
 
     Returns:
         Calculated state for the next step, and an array of live cells that
@@ -79,13 +120,25 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
     for x in range(width):
         for y in range(height):
             # Counts the number of live neighbors in a 3×3 range
-            count_living = count_neighbors(
-                field=current_field,
-                row=y,
-                column=x,
-                width_field=width,
-                height_field=height
-            )
+
+            if mode == 'Neumann':
+                count_living = count_neighbors_Neumann(
+                    field=current_field,
+                    row=y,
+                    column=x,
+                    width_field=width,
+                    height_field=height
+                )
+            elif mode == 'Moore':
+                count_living = count_neighbors_Neumann(
+                    field=current_field,
+                    row=y,
+                    column=x,
+                    width_field=width,
+                    height_field=height
+                )
+            else:
+                raise ValueError("mode is not set!")
 
             # Apply rules for number of live cells nearby
             if current_field[y][x] == 1:
@@ -114,12 +167,14 @@ class GameEngine(GameEngineBase):
     next_area: np.ndarray
     draw_rects: List
     size_area: Size
+    _mode: Literal['Moore', 'Neumann']
 
     def __init__(self, app: AppBase, screen: pg.SurfaceType) -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.app = app
         self.screen = screen
         self.color_cell = c.COLOR_CELL
+        self._mode: Literal['Moore', 'Neumann'] = 'Moore'
 
         width_area = self.app.width // c.CELL_SIZE
         height_area = self.app.height // c.CELL_SIZE
@@ -129,11 +184,25 @@ class GameEngine(GameEngineBase):
 
         self.size_area = Size(width=width_area, height=height_area)
 
-        self.current_area = np.array([[randint(0, 1) for _ in range(width_area)] for _ in range(height_area)])
+        self.current_area = np.array(
+            [
+                [1 if x % 2 == 0 or y % 2 == 0 else 0 for x in range(width_area)]
+                for y in range(height_area)
+            ]
+        )
         self.next_area = np.array([[0 for _ in range(width_area)] for _ in range(height_area)])
         self.draw_rects = []
 
         logger.debug("Finish of class initialization {}", self.__class__.__name__)
+
+    @property
+    def mode(self) -> Literal['Moore', 'Neumann']:
+        return self._mode
+
+    @mode.setter
+    def mode(self, value: Literal['Moore', 'Neumann']) -> None:
+        logger.info(f"SET MODE: '{value}'")
+        self._mode = value
 
     def draw_area(self) -> None:
         """Draws the cells in self.area on the monitor."""
@@ -150,7 +219,8 @@ class GameEngine(GameEngineBase):
             current_field=self.current_area,
             next_field=self.next_area,
             width=self.size_area.width,
-            height=self.size_area.height
+            height=self.size_area.height,
+            mode=self.mode
         )
 
         self.current_area = copy.deepcopy(self.next_area)

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional, Tuple, Union
+from typing import Optional, Tuple, Union, Literal
 
 import pygame as pg
 
@@ -51,6 +51,8 @@ class InterfaceBase(ABC):
 
 
 class GameEngineBase(ABC):
+    _mode: Literal['Moore', 'Neumann']
+
     @abstractmethod
     def process(self) -> None:
         pass

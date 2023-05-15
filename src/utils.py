@@ -61,7 +61,9 @@ def handle_event_for_mouse_event(event: EventType, app: AppBase) -> None:
         if not app.interface.hide_menu:
             if app.interface.buttons.Neumann.collidepoint(*position):
                 logger.info("Click on von Neumann neighborhood")
+                app.GameEngine.mode = 'Neumann'
             elif app.interface.buttons.Moore.collidepoint(*position):
+                app.GameEngine.mode = 'Moore'
                 logger.info("Click on Moore neighborhood")
 
 
