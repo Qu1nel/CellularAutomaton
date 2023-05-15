@@ -149,10 +149,30 @@ class Interface(InterfaceBase):
 
     def draw_buttons(self) -> None:
         if not self.hide_menu:
-            pg.draw.rect(surface=self.screen, color=Colors.RED.value, rect=self.buttons.Moore.coord, width=2)
-            pg.draw.rect(surface=self.screen, color=Colors.RED.value, rect=self.buttons.Neumann.coord, width=2)
-        else:
-            pass
+            self._draw_frame_rect_on_display(
+                rect=self.buttons.Neumann.coord,
+                border_radius=self._radius,
+                width=2
+            )
+            font = pg.font.SysFont("arial", int(self.buttons.open_menu.width))
+
+            img = font.render('N', True, Colors.WHITE.value)
+            self.screen.blit(img, (
+                self.buttons.Neumann.width / 2 - (font.size('N')[0] / 2) + self.buttons.Neumann.left,
+                self.buttons.Neumann.height / 2 - (font.size('N')[1] / 2) + self.buttons.Neumann.top
+            ))
+
+            self._draw_frame_rect_on_display(
+                rect=self.buttons.Moore.coord,
+                border_radius=self._radius,
+                width=2
+            )
+
+            img = font.render('M', True, Colors.WHITE.value)
+            self.screen.blit(img, (
+                self.buttons.Moore.width / 2 - (font.size('M')[0] / 2) + self.buttons.Moore.left,
+                self.buttons.Moore.height / 2 - (font.size('M')[1] / 2) + self.buttons.Moore.top
+            ))
 
     def draw_fps(self, frame_per_second: int) -> None:
         """Draws FPS on the screen in the upper right corner of the game.
