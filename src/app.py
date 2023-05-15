@@ -1,17 +1,18 @@
-from typing import Union, Tuple
+from typing import Tuple, TypeAlias, Union
 
 import pygame as pg
-
+from loguru import logger
+from pygame import SurfaceType
 from pygame.event import EventType
 from pygame.time import Clock
-from pygame import SurfaceType
-from loguru import logger
 
-from utils import exit_from_app_with_code, handle_event_for_key_event, handle_event_for_mouse_event
 from base import AppBase, GameEngineBase, InterfaceBase
-from interface import Interface
+from config import Color as _Color
 from engine import GameEngine
-from config import Color
+from interface import Interface
+from utils import exit_from_app_with_code, handle_event_for_key_event, handle_event_for_mouse_event
+
+Color: TypeAlias = Union[_Color, Tuple[int, int, int]]
 
 
 class App(AppBase):
@@ -19,6 +20,7 @@ class App(AppBase):
 
     width: int
     height: int
+    hide_fps: bool
     fps_chill: int
     fps: int
     pause: bool
@@ -28,11 +30,12 @@ class App(AppBase):
     interface: InterfaceBase
     clock: Clock  # Sets a delay for the desired amount of FPS
 
-    def __init__(self, width: int, height: int, fps: int, bg_color: Union[Color, Tuple[int, int, int]]) -> None:
+    def __init__(self, width: int, height: int, fps: int, bg_color: Color, hide_fps: bool = False) -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.width = width
         self.height = height
 
+        self.hide_fps = hide_fps
         self.fps_chill = 3
         self.fps = fps
         self.pause = False
@@ -82,11 +85,14 @@ class App(AppBase):
         """Draws a picture on the display."""
         self.screen.fill(self.bg_color)
         self.GameEngine.draw_area()
+
         self.interface.draw_menu()
         self.interface.draw_buttons()
-        self.interface.draw_fps(
-            frame_per_second=int(self.clock.get_fps())
-        )
+
+        if not self.hide_fps:
+            current_fps = int(self.clock.get_fps())
+            self.interface.draw_fps(frame_per_second=current_fps)
+
         pg.display.update()
 
     def process(self) -> None:

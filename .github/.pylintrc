@@ -12,3 +12,5 @@ disable=
     R0801,  # duplicate-code
     R0903,  # too-few-public-methods
     R0902,  # too-many-instance-attributes
+    R0913,  # too-many-arguments
+    C0412,  # ungrouped-imports

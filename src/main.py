@@ -1,11 +1,13 @@
-from loguru import logger
 import pygame
+from loguru import logger
 
 from app import App
+from config import COLOR_BG, FRAME_RATE, RESOLUTION_APP
 from utils import setting_arguments_parser
-from config import Resolution, FrameRate, COLOR_BG
 
-DEBUG: bool = setting_arguments_parser().debug
+ARGV = setting_arguments_parser()
+HIDE_FPS: bool = ARGV.hide_fps
+DEBUG: bool = ARGV.debug
 
 if DEBUG is True:
     from pathlib import Path
@@ -25,7 +27,8 @@ def main() -> None:
     """The main function of GameOfLive."""
     logger.debug("In main() function")
     pygame.init()
-    game = App(*Resolution, fps=FrameRate, bg_color=COLOR_BG)
+    # *RESOLUTION_APP -> width, height
+    game = App(*RESOLUTION_APP, fps=FRAME_RATE, bg_color=COLOR_BG, hide_fps=HIDE_FPS)
     game.run()
 
 

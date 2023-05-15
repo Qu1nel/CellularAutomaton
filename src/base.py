@@ -1,5 +1,5 @@
-from typing import Union, Optional, Tuple
 from abc import ABC, abstractmethod
+from typing import Optional, Tuple, Union
 
 import pygame as pg
 
@@ -7,8 +7,8 @@ import pygame as pg
 class Buttons(dict):
     """Dot.notation access to dictionary attributes"""
     __getattr__ = dict.get
-    __setattr__ = dict.__setitem__
-    __delattr__ = dict.__delitem__
+    __setattr__ = dict.__setitem__  # type: ignore
+    __delattr__ = dict.__delitem__  # type: ignore
 
 
 class RectBase:
@@ -21,7 +21,7 @@ class RectBase:
 
     @property
     @abstractmethod
-    def coord(self) -> Tuple[int, int, int, int]:
+    def coord(self) -> Tuple[Union[int, float], Union[int, float], Union[int, float], Union[int, float]]:
         pass
 
     @abstractmethod

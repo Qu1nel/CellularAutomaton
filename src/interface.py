@@ -1,10 +1,10 @@
-from typing import Tuple, Union, TypeAlias
-from functools import partial
 from enum import Enum
+from functools import partial
+from typing import Tuple, TypeAlias, Union
 
 import pygame as pg
 
-from base import InterfaceBase, RectBase, Buttons
+from base import Buttons, InterfaceBase, RectBase
 from config import COLOR_INTERFACE
 
 Number: TypeAlias = Union[int, float]
@@ -25,11 +25,13 @@ class Rect(RectBase):
         self.width = width
         self.height = height
 
+        self.radius = -1
+
     def set_radius(self, value: int) -> None:
         self.radius = value
 
     @property
-    def coord(self) -> Tuple[int, int, int, int]:
+    def coord(self) -> Tuple[Number, Number, Number, Number]:
         return self.left, self.top, self.width, self.height
 
 
@@ -89,6 +91,9 @@ class Interface(InterfaceBase):
             width=self._width_menu - self._x_menu * 2,
             height=self._width_menu - self._x_menu * 2
         )
+
+        self._draw_bg_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=COLOR_INTERFACE)
+        self._draw_frame_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=Colors.BLACK.value)
 
     def draw_menu(self) -> None:
         """Draws a menu containing buttons on the left
@@ -160,27 +165,30 @@ class Interface(InterfaceBase):
             None
         """
         radius = int(self.width * 0.04)
-        height = self.height * 0.08
+        height = int(self.height * 0.08)
 
-        width_point = self.width * 0.94
-        height_point = -(height / 2)
+        width_point = int(self.width * 0.94)
+        height_point = -int((height / 2))
 
-        pg.draw.rect(
-            surface=self.screen,
-            color=COLOR_INTERFACE,
+        self._draw_bg_rect_on_display(
             rect=(width_point, height_point, 1000, height),
             border_radius=radius
         )
 
-        pg.draw.rect(
-            surface=self.screen,
-            color=Colors.BLACK.value,
+        self._draw_frame_rect_on_display(
             rect=(width_point, height_point, 1000, height),
             border_radius=radius,
             width=2
         )
 
         font = pg.font.SysFont("arial", int(height / 3))
-        img = font.render(f'fps {frame_per_second}', True, Colors.GREEN.value)
+
+        # Draw red fps if it's too low
+        if frame_per_second <= 15:
+            color = Colors.RED.value
+        else:
+            color = Colors.GREEN.value
+
+        img = font.render(f'fps {frame_per_second}', True, color)
 
         self.screen.blit(img, (self.width * 0.952, self.height * 0.004))

@@ -1,14 +1,12 @@
 import argparse
 import sys
-
-from typing import List, NoReturn, Optional, Tuple, TypeAlias
 from collections import namedtuple
+from typing import List, NoReturn, Optional, Tuple, TypeAlias
 
-import pygame as pg
 import numpy as np
-
-from pygame.event import EventType
+import pygame as pg
 from loguru import logger
+from pygame.event import EventType
 
 from base import AppBase
 
@@ -28,6 +26,7 @@ def setting_arguments_parser() -> argparse.Namespace:
         the dependencies specified in README.md, then set the --debug flag"
     )
     parser.add_argument('-D', '--debug', action='store_true', help="Enables game logging")
+    parser.add_argument('-H', '--hide-fps', action='store_true', help="Disable showing fps in game")
     args = parser.parse_args()
     return args
 
