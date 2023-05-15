@@ -55,9 +55,15 @@ def handle_event_for_mouse_event(event: EventType, app: AppBase) -> None:
         if app.interface.buttons.hide_menu.collidepoint(*position) and app.interface.hide_menu is False:
             logger.info("Click on \"Hide menu\"")
             app.interface.hide_menu = True
-        if app.interface.buttons.open_menu.collidepoint(*position) and app.interface.hide_menu is True:
+        elif app.interface.buttons.open_menu.collidepoint(*position) and app.interface.hide_menu is True:
             logger.info("Click on \"Open menu\"")
             app.interface.hide_menu = False
+
+        if not app.interface.hide_menu:
+            if app.interface.buttons.Neumann.collidepoint(*position):
+                logger.info("Click on von Neumann neighborhood")
+            elif app.interface.buttons.Moore.collidepoint(*position):
+                logger.info("Click on Moore neighborhood")
 
 
 def exit_from_app_with_code(code: int = 0) -> NoReturn:

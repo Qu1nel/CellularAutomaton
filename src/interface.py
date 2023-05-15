@@ -46,7 +46,6 @@ class Interface(InterfaceBase):
         self.height = height
 
         self.hide_menu = False
-        self.buttons_menu = Buttons()
         self._init_menu()
 
         self.buttons = Buttons()
@@ -57,7 +56,7 @@ class Interface(InterfaceBase):
 
     def _init_menu(self) -> None:
         """Initializes the position and properties of the menu."""
-        self._height_menu = int(self.height * 0.16 * (len(self.buttons_menu) + 1))
+        self._height_menu = int(self.height * 0.16 * 2)  # last digit is number of buttons in menu
         self._width_menu = int(self.width * 0.08)
         self._radius = int(self._width_menu * 0.15)
         self._x_menu = self.width * 0.01
@@ -78,6 +77,18 @@ class Interface(InterfaceBase):
             width=self.width * 0.04,
             height=self.height * 0.2
         )
+        self.buttons.Moore = Button(
+            left=self._x_menu * 2,
+            top=self._y_menu + self._x_menu,
+            width=self._width_menu - self._x_menu * 2,
+            height=self._width_menu - self._x_menu * 2,
+        )
+        self.buttons.Neumann = Button(
+            left=self._x_menu * 2,
+            top=self._y_menu + self._width_menu + self._x_menu,
+            width=self._width_menu - self._x_menu * 2,
+            height=self._width_menu - self._x_menu * 2
+        )
 
     def draw_menu(self) -> None:
         """Draws a menu containing buttons on the left
@@ -97,12 +108,25 @@ class Interface(InterfaceBase):
                 rect=self._rect_menu,
                 border_radius=self._radius
             )
+            self._draw_frame_rect_on_display(
+                rect=self._rect_menu,
+                border_radius=self._radius,
+                width=2
+            )
             pg.draw.circle(
                 surface=self.screen,
                 color=COLOR_INTERFACE,
                 center=(self._x_menu + self._width_menu,
                         self._y_menu + (self._height_menu / 2) * 2 + self.width * 0.01),
                 radius=self._radius
+            )
+            pg.draw.circle(
+                surface=self.screen,
+                color=Colors.BLACK.value,
+                center=(self._x_menu + self._width_menu,
+                        self._y_menu + (self._height_menu / 2) * 2 + self.width * 0.01),
+                radius=self._radius,
+                width=2
             )
         else:
             width_open_menu = self.width * 0.04
@@ -111,12 +135,19 @@ class Interface(InterfaceBase):
                       width_open_menu, self.height * 0.2),
                 border_radius=self._radius
             )
-
-        pg.draw.rect(surface=self.screen, color=Colors.RED.value, rect=self.buttons.hide_menu.coord, width=2)
-        pg.draw.rect(surface=self.screen, color=Colors.RED.value, rect=self.buttons.open_menu.coord, width=2)
+            self._draw_frame_rect_on_display(
+                rect=(-width_open_menu / 2, self.height / 2 - self.height * 0.2 / 2,
+                      width_open_menu, self.height * 0.2),
+                border_radius=self._radius,
+                width=2
+            )
 
     def draw_buttons(self) -> None:
-        pass
+        if not self.hide_menu:
+            pg.draw.rect(surface=self.screen, color=Colors.RED.value, rect=self.buttons.Moore.coord, width=2)
+            pg.draw.rect(surface=self.screen, color=Colors.RED.value, rect=self.buttons.Neumann.coord, width=2)
+        else:
+            pass
 
     def draw_fps(self, frame_per_second: int) -> None:
         """Draws FPS on the screen in the upper right corner of the game.
