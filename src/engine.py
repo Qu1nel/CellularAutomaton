@@ -14,7 +14,7 @@ from utils import CheckCells, Size
 
 
 @njit(fastmath=True)
-def count_neighbors_Neumann(field: np.ndarray, row: int, column: int, width_field: int, height_field: int) -> int:
+def count_neighbors_Moore(field: np.ndarray, row: int, column: int, width_field: int, height_field: int) -> int:
     """Efficient* counts all 8 neighbors for a cell
 
     The function does not go through all 8 possible values around the cell, but
@@ -49,13 +49,13 @@ def count_neighbors_Neumann(field: np.ndarray, row: int, column: int, width_fiel
 
 
 @njit(fastmath=True)
-def count_neighbors_Moore(field: np.ndarray, row: int, column: int, width_field: int, height_field: int) -> int:
+def count_neighbors_Neumann(field: np.ndarray, row: int, column: int, width_field: int, height_field: int) -> int:
     """Efficient* counts only 4 neighbors for a cell
     
     Like the count_neighbors_Neumann function, it also counts the cell's
     neighbors. But it counts only those who are located on the same axis
     as the central cell, i.e. it counts only 4 of its neighbors. At what
-    using only 1 iterations for this.
+    using only 1 iteration for this.
 
     Args:
         field: The field on which the cells are located
@@ -69,17 +69,16 @@ def count_neighbors_Moore(field: np.ndarray, row: int, column: int, width_field:
     """
     neighbors = 0
 
-    i, j = 0, 1
+    for i, j in ((1, 0), (0, 1)):
+        X = row + i
+        Y = column + j
+        if 0 <= Y < width_field and 0 <= X < height_field:
+            neighbors += field[X][Y]
 
-    X = row + i
-    Y = column + j
-    if 0 <= Y < width_field and 0 <= X < height_field:
-        neighbors += field[X][Y]
-
-    X = row - i
-    Y = column - j
-    if 0 <= Y < width_field and 0 <= X < height_field:
-        neighbors += field[X][Y]
+        X = row - i
+        Y = column - j
+        if 0 <= Y < width_field and 0 <= X < height_field:
+            neighbors += field[X][Y]
 
     return neighbors
 
@@ -130,7 +129,7 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
                     height_field=height
                 )
             elif mode == 'Moore':
-                count_living = count_neighbors_Neumann(
+                count_living = count_neighbors_Moore(
                     field=current_field,
                     row=y,
                     column=x,
@@ -169,12 +168,14 @@ class GameEngine(GameEngineBase):
     size_area: Size
     _mode: Literal['Moore', 'Neumann']
 
-    def __init__(self, app: AppBase, screen: pg.SurfaceType) -> None:
+    def __init__(self, app: AppBase, screen: pg.SurfaceType, mode: Literal['Moore', 'Neumann']) -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.app = app
         self.screen = screen
         self.color_cell = c.COLOR_CELL
-        self._mode: Literal['Moore', 'Neumann'] = 'Moore'
+        self._mode: Literal['Moore', 'Neumann'] = mode
+
+        logger.info(f"MODE IS '{self._mode}'")
 
         width_area = self.app.width // c.CELL_SIZE
         height_area = self.app.height // c.CELL_SIZE
@@ -186,7 +187,7 @@ class GameEngine(GameEngineBase):
 
         self.current_area = np.array(
             [
-                [1 if x % 2 == 0 or y % 2 == 0 else 0 for x in range(width_area)]
+                [1 if x == width_area / 2 and y == height_area / 2 else 0 for x in range(width_area)]
                 for y in range(height_area)
             ]
         )
