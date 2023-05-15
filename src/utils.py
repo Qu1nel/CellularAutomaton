@@ -27,6 +27,9 @@ def setting_arguments_parser() -> argparse.Namespace:
     )
     parser.add_argument('-D', '--debug', action='store_true', help="Enables game logging")
     parser.add_argument('-H', '--hide-fps', action='store_true', help="Disable showing fps in game")
+    mode_group = parser.add_mutually_exclusive_group()
+    mode_group.add_argument('-N', '--Neumann', action='store_true', help="Set Neumann count neighbors mode")
+    mode_group.add_argument('-M', '--Moore', action='store_true', help="Set Moore count neighbors mode")
     args = parser.parse_args()
     return args
 

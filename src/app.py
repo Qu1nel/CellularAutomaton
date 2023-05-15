@@ -1,4 +1,4 @@
-from typing import Tuple, TypeAlias, Union
+from typing import Tuple, TypeAlias, Union, Literal
 
 import pygame as pg
 from loguru import logger
@@ -30,10 +30,13 @@ class App(AppBase):
     interface: InterfaceBase
     clock: Clock  # Sets a delay for the desired amount of FPS
 
-    def __init__(self, width: int, height: int, fps: int, bg_color: Color, hide_fps: bool = False) -> None:
+    def __init__(self, width: int, height: int, fps: int, bg_color: Color, hide_fps: bool = False,
+                 mode: Literal['Moore', 'Neumann'] = 'Moore') -> None:
         logger.debug("Start of class initialization {}", self.__class__.__name__)
         self.width = width
         self.height = height
+
+        self.mode: Literal['Moore', 'Neumann'] = mode
 
         self.hide_fps = hide_fps
         self.fps_chill = 3
@@ -44,7 +47,7 @@ class App(AppBase):
 
         self.screen = pg.display.set_mode((self.width, self.height))
 
-        self.GameEngine = GameEngine(app=self, screen=self.screen)
+        self.GameEngine = GameEngine(app=self, screen=self.screen, mode=self.mode)
         self.interface = Interface(screen=self.screen, width=width, height=height)
 
         self.clock = Clock()

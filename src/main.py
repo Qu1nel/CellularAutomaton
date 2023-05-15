@@ -8,6 +8,8 @@ from utils import setting_arguments_parser
 ARGV = setting_arguments_parser()
 HIDE_FPS: bool = ARGV.hide_fps
 DEBUG: bool = ARGV.debug
+MOORE: bool = ARGV.Moore
+NEUMANN: bool = ARGV.Neumann
 
 if DEBUG is True:
     from pathlib import Path
@@ -28,7 +30,8 @@ def main() -> None:
     logger.debug("In main() function")
     pygame.init()
     # *RESOLUTION_APP -> width, height
-    game = App(*RESOLUTION_APP, fps=FRAME_RATE, bg_color=COLOR_BG, hide_fps=HIDE_FPS)
+    game = App(*RESOLUTION_APP, fps=FRAME_RATE, bg_color=COLOR_BG, hide_fps=HIDE_FPS,
+               mode='Neumann' if NEUMANN is True else 'Moore')
     game.run()
 
 
