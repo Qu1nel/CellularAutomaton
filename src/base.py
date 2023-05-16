@@ -38,7 +38,7 @@ class InterfaceBase(ABC):
     buttons: Buttons
 
     @abstractmethod
-    def draw_menu(self) -> None:
+    def draw_menu(self, mode: Literal['Moore', 'Neumann']) -> None:
         pass
 
     @abstractmethod
@@ -52,6 +52,16 @@ class InterfaceBase(ABC):
 
 class GameEngineBase(ABC):
     _mode: Literal['Moore', 'Neumann']
+
+    @property
+    @abstractmethod
+    def mode(self) -> Literal['Moore', 'Neumann']:
+        pass
+
+    @mode.setter
+    @abstractmethod
+    def mode(self, value: Literal['Moore', 'Neumann']) -> None:
+        pass
 
     @abstractmethod
     def process(self) -> None:
