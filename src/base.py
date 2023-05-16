@@ -69,6 +69,16 @@ class GameEngineBase(ABC):
     def mode(self, value: Literal['Moore', 'Neumann']) -> None:
         pass
 
+    @property
+    @abstractmethod
+    def preset(self) -> Union[Rules, str]:
+        pass
+
+    @preset.setter
+    @abstractmethod
+    def preset(self, value: Union[Rules, str]) -> None:
+        pass
+
     @abstractmethod
     def process(self) -> None:
         pass
