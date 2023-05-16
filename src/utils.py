@@ -8,7 +8,7 @@ import pygame as pg
 from loguru import logger
 from pygame.event import EventType
 
-from base import AppBase
+from base import AppBase, Rules
 
 # Types for function check_cells() in src/engine.py
 ResultToDrawing: TypeAlias = List[Tuple[int, int]]
@@ -50,11 +50,13 @@ def handle_event_for_key_event(event: EventType, app: AppBase) -> Optional[NoRet
                 logger.info("SHIFT+0 was pressed")
             else:
                 logger.info("Button 0 was pressed")
+                app.GameEngine.preset = Rules.b3_s23
         case pg.K_1:
             if pg.key.get_mods() & pg.KMOD_SHIFT:
                 logger.info("SHIFT+1 was pressed")
             else:
                 logger.info("Button 1 was pressed")
+                app.GameEngine.preset = Rules.b1_s0123456789
         case pg.K_2:
             if pg.key.get_mods() & pg.KMOD_SHIFT:
                 logger.info("SHIFT+2 was pressed")
