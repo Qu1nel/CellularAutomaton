@@ -118,8 +118,6 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
 
     for x in range(width):
         for y in range(height):
-            # Counts the number of live neighbors in a 3×3 range
-
             if mode == 'Neumann':
                 count_living = count_neighbors_Neumann(
                     field=current_field,
