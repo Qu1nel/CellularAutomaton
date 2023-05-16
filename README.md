@@ -35,6 +35,10 @@ All python dependencies specified in the file [requirements.txt](./requirements.
 
 Pressing the space bar will ensure that the game stops until the next key is pressed.
 
+
+Also in the game it is possible to change the neighborhood calculation mode for a cell (number of counted neighbors) to **"Moore neighborhood"** and **"Neumann neighborhood"**.\
+This can be done using two buttons on the screen, which can be minimized at will.
+
 ---
 
 ### Flags
