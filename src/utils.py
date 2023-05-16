@@ -56,12 +56,13 @@ def handle_event_for_key_event(event: EventType, app: AppBase) -> Optional[NoRet
                 logger.info("SHIFT+1 was pressed")
             else:
                 logger.info("Button 1 was pressed")
-                app.GameEngine.preset = Rules.b1_s0123456789
+                app.GameEngine.preset = Rules.b1_s012345678
         case pg.K_2:
             if pg.key.get_mods() & pg.KMOD_SHIFT:
                 logger.info("SHIFT+2 was pressed")
             else:
                 logger.info("Button 2 was pressed")
+                app.GameEngine.preset = Rules.b5678_s45678
 
 
 def handle_event_for_mouse_event(event: EventType, app: AppBase) -> None:

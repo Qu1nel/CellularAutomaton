@@ -32,7 +32,8 @@ class RectBase:
 
 class Rules(str, Enum):
     b3_s23 = 'b3/s23'
-    b1_s0123456789 = 'b1/s0123456789'
+    b1_s012345678 = 'b1/s012345678'
+    b5678_s45678 = 'b5678/s45678'
 
 
 class InterfaceBase(ABC):
