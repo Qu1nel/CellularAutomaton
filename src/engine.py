@@ -185,12 +185,7 @@ class GameEngine(GameEngineBase):
 
         self.size_area = Size(width=width_area, height=height_area)
 
-        self.current_area = np.array(
-            [
-                [1 if x == width_area / 2 and y == height_area / 2 else 0 for x in range(width_area)]
-                for y in range(height_area)
-            ]
-        )
+        self.current_area = np.array([[randint(0, 1) for _ in range(width_area)] for _ in range(height_area)])
         self.next_area = np.array([[0 for _ in range(width_area)] for _ in range(height_area)])
         self.draw_rects = []
 
