@@ -36,6 +36,11 @@ class Rules(str, Enum):
     b5678_s45678 = 'b5678/s45678'
 
 
+class StateInit(int, Enum):
+    RANDOM = 0
+    DOT = 1
+
+
 class InterfaceBase(ABC):
     screen: pg.SurfaceType
 
@@ -59,6 +64,10 @@ class InterfaceBase(ABC):
 
 class GameEngineBase(ABC):
     _mode: Literal['Moore', 'Neumann']
+
+    @abstractmethod
+    def init_area(self, state: StateInit) -> None:
+        pass
 
     @property
     @abstractmethod

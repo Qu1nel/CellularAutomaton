@@ -8,7 +8,7 @@ from loguru import logger
 from numba import njit
 
 import config as c
-from base import AppBase, GameEngineBase, Rules
+from base import AppBase, GameEngineBase, Rules, StateInit
 from config import Color
 from utils import CheckCells, Size
 
@@ -191,11 +191,26 @@ class GameEngine(GameEngineBase):
 
         self.size_area = Size(width=width_area, height=height_area)
 
-        self.current_area = np.array([[randint(0, 1) for _ in range(width_area)] for _ in range(height_area)])
+        self.init_area(state=StateInit.RANDOM)
         self.next_area = np.array([[0 for _ in range(width_area)] for _ in range(height_area)])
         self.draw_rects = []
 
         logger.debug("Finish of class initialization {}", self.__class__.__name__)
+
+    def init_area(self, state: StateInit) -> None:
+        width = self.app.width // c.CELL_SIZE
+        height = self.app.height // c.CELL_SIZE
+
+        match state:
+            case 0:
+                logger.info(f"SET RANDOM init area")
+                self.current_area = np.array([[randint(0, 1) for _ in range(width)] for _ in range(height)])
+            case 1:
+                logger.info(f"SET DOT init area")
+                self.current_area = np.array([[0 for _ in range(width)] for _ in range(height)])
+                self.current_area[height // 2][width // 2] = 1
+            case _:
+                logger.critical("ппц")
 
     @property
     def mode(self) -> Literal['Moore', 'Neumann']:
