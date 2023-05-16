@@ -45,6 +45,21 @@ def handle_event_for_key_event(event: EventType, app: AppBase) -> Optional[NoRet
         case pg.K_SPACE:
             logger.info("SPACE was pressed")
             app.pause = not app.pause
+        case pg.K_0:
+            if pg.key.get_mods() & pg.KMOD_SHIFT:
+                logger.info("SHIFT+0 was pressed")
+            else:
+                logger.info("Button 0 was pressed")
+        case pg.K_1:
+            if pg.key.get_mods() & pg.KMOD_SHIFT:
+                logger.info("SHIFT+1 was pressed")
+            else:
+                logger.info("Button 1 was pressed")
+        case pg.K_2:
+            if pg.key.get_mods() & pg.KMOD_SHIFT:
+                logger.info("SHIFT+2 was pressed")
+            else:
+                logger.info("Button 2 was pressed")
 
 
 def handle_event_for_mouse_event(event: EventType, app: AppBase) -> None:
