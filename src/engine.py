@@ -55,7 +55,7 @@ def count_neighbors_Neumann(field: np.ndarray, row: int, column: int, width_fiel
     Like the count_neighbors_Neumann function, it also counts the cell's
     neighbors. But it counts only those who are located on the same axis
     as the central cell, i.e. it counts only 4 of its neighbors. At what
-    using only 1 iteration for this.
+    using only 2 iterations for this.
 
     Args:
         field: The field on which the cells are located
