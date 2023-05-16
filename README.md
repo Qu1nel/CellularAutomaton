@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="https://github.com/Qu1nel/Life/blob/main/.github/preview.png" width=580px>
+  <img src=".github/preview1.png" width=580px>
+  <img src=".github/preview2.png" width=580px>
 </p>
 
 <p align="center">
@@ -29,7 +30,7 @@ All python dependencies specified in the file [requirements.txt](./requirements.
 ## Documentation
 
 | Key      | Action        |
-| -------- | ------------- |
+|----------|---------------|
 | \<SPACE> | pause of game |
 
 Pressing the space bar will ensure that the game stops until the next key is pressed.
@@ -54,6 +55,22 @@ If you want to disable the display of fps in the game in the upper right corner,
 
 ```bash
 python ./main.py --hide-fps  # Disable showing fps in game
+```
+
+#### --Moore
+
+If you want to explicitly (because this parameter is set by default) enable the so-called Moore neighborhood that counts all 8 cell neighbors, use `--Moore` or `-M` flags.
+
+```bash
+python ./main.py --Moore
+```
+
+#### --Neumann
+
+If you want to include the so-called Neumann neighborhood that allows the game to count only 4 neighbors for a cell, use `--Neumann` or `-N` flags.
+
+```bash
+python ./main.py --Neumann
 ```
 
 ## Developers
