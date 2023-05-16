@@ -36,8 +36,6 @@ class App(AppBase):
         self.width = width
         self.height = height
 
-        self.mode: Literal['Moore', 'Neumann'] = mode
-
         self.hide_fps = hide_fps
         self.fps_chill = 3
         self.fps = fps
@@ -47,7 +45,7 @@ class App(AppBase):
 
         self.screen = pg.display.set_mode((self.width, self.height))
 
-        self.GameEngine = GameEngine(app=self, screen=self.screen, mode=self.mode)
+        self.GameEngine = GameEngine(app=self, screen=self.screen, mode=mode)
         self.interface = Interface(screen=self.screen, width=width, height=height)
 
         self.clock = Clock()
