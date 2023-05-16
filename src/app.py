@@ -89,7 +89,7 @@ class App(AppBase):
         self.screen.fill(self.bg_color)
         self.GameEngine.draw_area()
 
-        self.interface.draw_menu()
+        self.interface.draw_menu(mode=self.GameEngine.mode)
         self.interface.draw_buttons()
 
         if not self.hide_fps:

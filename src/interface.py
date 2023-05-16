@@ -1,6 +1,6 @@
 from enum import Enum
 from functools import partial
-from typing import Tuple, TypeAlias, Union
+from typing import Tuple, TypeAlias, Union, Literal
 
 import pygame as pg
 
@@ -95,7 +95,7 @@ class Interface(InterfaceBase):
         self._draw_bg_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=COLOR_INTERFACE)
         self._draw_frame_rect_on_display = partial(pg.draw.rect, surface=self.screen, color=Colors.BLACK.value)
 
-    def draw_menu(self) -> None:
+    def draw_menu(self, mode: Literal['Moore', 'Neumann']) -> None:
         """Draws a menu containing buttons on the left
 
         The menu can be hidden by clicking on the arrow in the lower right
@@ -118,6 +118,14 @@ class Interface(InterfaceBase):
                 border_radius=self._radius,
                 width=2
             )
+
+            font = pg.font.SysFont("arial", int(self.buttons.open_menu.width / 2.8))
+            img = font.render(f'Mode: {mode[0]}', True, Colors.WHITE.value)
+            self.screen.blit(img, (
+                self._rect_menu.left + self._rect_menu.width / 2 - img.get_width() / 2,
+                self._rect_menu.top + self._rect_menu.height - img.get_height() - self._rect_menu.left
+            ))
+
             pg.draw.circle(
                 surface=self.screen,
                 color=COLOR_INTERFACE,
