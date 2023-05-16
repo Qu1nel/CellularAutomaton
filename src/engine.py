@@ -157,7 +157,8 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
 
 
 class GameEngine(GameEngineBase):
-    __slots__ = ('app', 'screen', 'color_cell', 'current_area', 'next_area', 'width_area', 'size_area', 'draw_rects')
+    __slots__ = ('app', 'screen', 'color_cell', 'current_area',
+                 'next_area', 'width_area', 'size_area', 'draw_rects', '_mode')
 
     app: AppBase
     screen: pg.SurfaceType
