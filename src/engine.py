@@ -1,6 +1,6 @@
 import copy
 from random import randint
-from typing import List, Literal
+from typing import List, Literal, Union, Tuple, Sequence
 
 import numpy as np
 import pygame as pg
@@ -8,7 +8,7 @@ from loguru import logger
 from numba import njit
 
 import config as c
-from base import AppBase, GameEngineBase
+from base import AppBase, GameEngineBase, Rules
 from config import Color
 from utils import CheckCells, Size
 
@@ -85,7 +85,7 @@ def count_neighbors_Neumann(field: np.ndarray, row: int, column: int, width_fiel
 
 @njit(fastmath=True)
 def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, height: int,
-                mode: Literal['Moore', 'Neumann'] = 'Moore') -> CheckCells:
+                rule: Sequence[Tuple[int]], mode: Literal['Moore', 'Neumann'] = 'Moore') -> CheckCells:
     """Counts for each cell how many living neighbors are nearby (3×3 cells).
 
     Accepts the current state of the field and the next. Based on the current
@@ -106,7 +106,9 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
         width: Number indicating the width of the playing field
         height: Number indicating the height of the playing field
         mode: Mod defining the principle of counting cell neighbors
-        
+        rule: A rule of the form [(2, ...), (3, 4, ...)] means that the cell appears with 2
+            neighbors, and survives if out of 3 or 4.
+
     Raises:
         ValueError: If `mode` argument was not passed.
 
@@ -137,15 +139,18 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
             else:
                 raise ValueError("mode is not set!")
 
+            _be = rule[0]
+            _survives = rule[1]
+
             # Apply rules for number of live cells nearby
             if current_field[y][x] == 1:
-                if count_living in (2, 3):
+                if count_living in _survives:
                     next_field[y][x] = 1
                     result_for_drawing.append((x, y))
                 else:
                     next_field[y][x] = 0
             else:
-                if count_living == 3:
+                if count_living in _be:
                     next_field[y][x] = 1
                     result_for_drawing.append((x, y))
                 else:
@@ -173,7 +178,9 @@ class GameEngine(GameEngineBase):
         self.screen = screen
         self.color_cell = c.COLOR_CELL
         self._mode: Literal['Moore', 'Neumann'] = mode
+        self._preset: str = Rules.b3_s23.value
 
+        logger.info(f"SET RULE: {self._preset}")
         logger.info(f"MODE IS '{self._mode}'")
 
         width_area = self.app.width // c.CELL_SIZE
@@ -199,6 +206,15 @@ class GameEngine(GameEngineBase):
         logger.info(f"SET MODE: '{value}'")
         self._mode = value
 
+    @property
+    def preset(self) -> Union[Rules, str]:
+        return self._preset
+
+    @preset.setter
+    def preset(self, value: Union[Rules, str]) -> None:
+        logger.info(f"SET RULE: '{value}'")
+        self._preset = value if isinstance(value, str) else value.value
+
     def draw_area(self) -> None:
         """Draws the cells in self.area on the monitor."""
         for x, y in self.draw_rects:
@@ -210,12 +226,16 @@ class GameEngine(GameEngineBase):
 
     def process(self) -> None:
         """Calculates the next state of self.area from the current state."""
+        b, s = self._preset.split('/')
+        preset = (tuple(int(i) for i in b[1:]), tuple(int(i) for i in s[1:]))
+
         self.next_area, self.draw_rects = check_cells(
             current_field=self.current_area,
             next_field=self.next_area,
             width=self.size_area.width,
             height=self.size_area.height,
-            mode=self.mode
+            mode=self.mode,
+            rule=preset
         )
 
         self.current_area = copy.deepcopy(self.next_area)

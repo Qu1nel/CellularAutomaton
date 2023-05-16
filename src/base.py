@@ -1,3 +1,4 @@
+from enum import Enum
 from abc import ABC, abstractmethod
 from typing import Optional, Tuple, Union, Literal
 
@@ -27,6 +28,11 @@ class RectBase:
     @abstractmethod
     def set_radius(self, param: int) -> None:
         pass
+
+
+class Rules(str, Enum):
+    b3_s23 = 'b3/s23'
+    b1_s0123456789 = 'b1/s0123456789'
 
 
 class InterfaceBase(ABC):
