@@ -160,9 +160,6 @@ def check_cells(current_field: np.ndarray, next_field: np.ndarray, width: int, h
 
 
 class GameEngine(GameEngineBase):
-    __slots__ = ('app', 'screen', 'color_cell', 'current_area',
-                 'next_area', 'width_area', 'size_area', 'draw_rects', '_mode')
-
     app: AppBase
     screen: pg.SurfaceType
     color_cell: Color
@@ -203,14 +200,14 @@ class GameEngine(GameEngineBase):
 
         match state:
             case 0:
-                logger.info(f"SET RANDOM init area")
+                logger.info("SET RANDOM init area")
                 self.current_area = np.array([[randint(0, 1) for _ in range(width)] for _ in range(height)])
             case 1:
-                logger.info(f"SET DOT init area")
+                logger.info("SET DOT init area")
                 self.current_area = np.array([[0 for _ in range(width)] for _ in range(height)])
                 self.current_area[height // 2][width // 2] = 1
             case _:
-                logger.critical("ппц")
+                logger.critical("no way")
 
     @property
     def mode(self) -> Literal['Moore', 'Neumann']:

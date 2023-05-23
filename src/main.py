@@ -31,8 +31,8 @@ def get_mode() -> Literal['Moore', 'Neumann']:
         return 'Moore'
     if NEUMANN is True:
         return 'Neumann'
-    else:
-        raise RuntimeError("never")
+
+    raise RuntimeError("never")
 
 
 # TODO: сделать вывод сообщения на экран (3-5 сек) о том, какая расстановка клеток выбрана
