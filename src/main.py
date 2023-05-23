@@ -1,3 +1,5 @@
+from typing import Literal
+
 import pygame
 from loguru import logger
 
@@ -24,14 +26,29 @@ else:
     logger.stop()
 
 
+def get_mode() -> Literal['Moore', 'Neumann']:
+    if MOORE is True:
+        return 'Moore'
+    if NEUMANN is True:
+        return 'Neumann'
+    else:
+        raise RuntimeError("never")
+
+
+# TODO: сделать вывод сообщения на экран (3-5 сек) о том, какая расстановка клеток выбрана
+# TODO: сделать вывод информации, о том, какое правило сейчас задействовано
+# TODO: добавить новые правила
+# TODO: добавить новые расстановки
+# TODO: добавить добавление кастомных расположений на экран через файл с символами
+
 @logger.catch
 def main() -> None:
     """The main function of GameOfLive."""
     logger.debug("In main() function")
     pygame.init()
+
     # *RESOLUTION_APP -> width, height
-    game = App(*RESOLUTION_APP, fps=FRAME_RATE, bg_color=COLOR_BG, hide_fps=HIDE_FPS,
-               mode='Neumann' if NEUMANN is True else 'Moore')
+    game = App(*RESOLUTION_APP, fps=FRAME_RATE, bg_color=COLOR_BG, hide_fps=HIDE_FPS, mode=get_mode())
     game.run()
 
 
