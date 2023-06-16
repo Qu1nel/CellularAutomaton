@@ -8,7 +8,7 @@ import pygame as pg
 from loguru import logger
 from pygame.event import EventType
 
-from base import AppBase, Rules, StateInit
+from src.base import AppBase, Rules, StateInit
 
 # Types for function check_cells() in src/engine.py
 ResultToDrawing: TypeAlias = List[Tuple[int, int]]

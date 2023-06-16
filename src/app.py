@@ -1,4 +1,4 @@
-from typing import Tuple, TypeAlias, Union, Literal
+from typing import Literal, Tuple, TypeAlias, Union
 
 import pygame as pg
 from loguru import logger
@@ -6,11 +6,12 @@ from pygame import SurfaceType
 from pygame.event import EventType
 from pygame.time import Clock
 
-from base import AppBase, GameEngineBase, InterfaceBase
-from config import Color as _Color
-from engine import GameEngine
-from interface import Interface
-from utils import exit_from_app_with_code, handle_event_for_key_event, handle_event_for_mouse_event
+from src.base import AppBase, GameEngineBase, InterfaceBase
+from src.config import Color as _Color
+from src.engine import GameEngine
+from src.interface import Interface
+from src.utils import (exit_from_app_with_code, handle_event_for_key_event,
+                       handle_event_for_mouse_event)
 
 Color: TypeAlias = Union[_Color, Tuple[int, int, int]]
 

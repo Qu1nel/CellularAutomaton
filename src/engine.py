@@ -7,10 +7,10 @@ import pygame as pg
 from loguru import logger
 from numba import njit
 
-import config as c
-from base import AppBase, GameEngineBase, Rules, StateInit
-from config import Color
-from utils import CheckCells, Size
+import src.config as c
+from src.base import AppBase, GameEngineBase, Rules, StateInit
+from src.config import Color
+from src.utils import CheckCells, Size
 
 
 @njit(fastmath=True)

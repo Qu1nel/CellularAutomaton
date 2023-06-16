@@ -4,8 +4,8 @@ from typing import Tuple, TypeAlias, Union, Literal
 
 import pygame as pg
 
-from base import Buttons, InterfaceBase, RectBase
-from config import COLOR_INTERFACE
+from src.base import Buttons, InterfaceBase, RectBase
+from src.config import COLOR_INTERFACE
 
 Number: TypeAlias = Union[int, float]
 
