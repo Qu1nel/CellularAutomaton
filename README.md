@@ -27,6 +27,19 @@ All python dependencies specified in the file [requirements.txt](./requirements.
 
     pip install -r requirements.txt
 
+## Getting Started
+
+Run [`run.py`](./run.py) using the python interpreter
+
+### Windows
+
+    python run.py
+
+### Linux
+
+    python3 run.py
+
+
 ## Documentation
 
 | Key      | Action        |
