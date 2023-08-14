@@ -1,6 +1,6 @@
 <p align="center">
-  <img src=".github/preview1.png" width=580px>
-  <img src=".github/preview2.png" width=580px>
+  <img src=".github/assets/preview1.png" width=580px>
+  <img src=".github/assets/preview2.png" width=580px>
 </p>
 
 <p align="center">
