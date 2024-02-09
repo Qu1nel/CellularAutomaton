@@ -1,0 +1,37 @@
+name: Linting
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run ruff
+        run: poetry run ruff check . --fix
+
+      - name: Run mypy
+        run: poetry run mypy .
+
+      - name: Run pyright
+        run: poetry run pyright .
+
+      - name: Run black
+        run: poetry run black .
