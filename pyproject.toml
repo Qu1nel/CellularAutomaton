@@ -1,0 +1,101 @@
+[project]
+name = "CellualrAutomaton"
+description = "The Game of Life is a cellular automaton."
+version = "1.0"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[[project.authors]]
+name = "Ivan Kovach"
+email = "covach.qn@gmail.com"
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Repository = "https://github.com/Qu1nel/CellularAutomaton"
+
+
+[tool.poetry]
+name = "CellualrAutomaton"
+version = "1.0"
+description = "The Game of Life is a cellular automaton."
+authors = ["Ivan Kovach <covach.qn@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pygame = "^2.5.2"
+loguru = "^0.7.2"
+numpy = "^1.26.4"
+numba = "^0.59.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.2.1"
+mypy = "^1.8.0"
+pyright = "^1.1.350"
+black = "^24.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+exclude = [
+    ".bzr", ".direnv", ".eggs", ".git", ".git-rewrite",
+    ".hg", ".mypy_cache", ".nox", ".pants.d", ".pytype",
+    ".ruff_cache", ".svn", ".tox", ".venv", ".env",
+    "__pypackages__", "__pycache__", "_build", "buck-out",
+    "build", "dist", "node_modules", "venv", "env",
+]
+
+[tool.ruff.lint]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+pydocstyle.convention = "google"
+mccabe.max-complexity = 10
+select = ["ALL"]
+ignore = [
+    "ANN002", "ANN003", "ANN101", "ANN102", "ANN401",
+    "D100", "D203", "D213", "B006", "B009", "B010",
+    "FBT001", "FBT002", "PYI001", "PYI024", "PGH003",
+    "PGH004", "TD002", "TD002", "S101", "S311", "T201",
+    "T203", "INP001", "PIE796", "RET504", "PTH123", "UP007",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402"]
+
+
+[tool.mypy]
+python_version = "3.11"
+plugins = "numpy.typing.mypy_plugin"
+check_untyped_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_return_any = true
+warn_unused_configs = true
+warn_redundant_casts = true
+
+
+[[tool.mypy.overrides]]
+module = ['tests.*']
+disallow_untyped_defs = false
+strict_equality = false
+
+
+[tool.pyright]
+include = ["src"]
+exclude = []
+venv = ".venv"
+
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+include = '\.pyi?$'
