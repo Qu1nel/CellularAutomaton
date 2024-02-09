@@ -1,46 +1,141 @@
-<p align="center">
-  <img src=".github/assets/preview1.png" width=580px>
-  <img src=".github/assets/preview2.png" width=580px>
+<div align="center">
+  <img src=".github/assets/logo.png" alt="logo" width="200px" height="auto" />
+  <h1>Cellular Automaton</h1>
+
+  <p>The Game of Life is a cellular automaton. </p>
+
+<!-- Badges -->
+<p>
+  <a href="https://github.com/Qu1nel/CellularAutomaton/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/Qu1nel/CellularAutomaton" alt="contributors" />
+  </a>
+  <a href="https://github.com/Qu1nel/CellularAutomaton/commits/main">
+    <img src="https://img.shields.io/github/last-commit/Qu1nel/CellularAutomaton" alt="last update" />
+  </a>
+  <a href="https://github.com/Qu1nel/CellularAutomaton/network/members">
+    <img src="https://img.shields.io/github/forks/Qu1nel/CellularAutomaton" alt="forks" />
+  </a>
+  <a href="https://github.com/Qu1nel/CellularAutomaton/stargazers">
+    <img src="https://img.shields.io/github/stars/Qu1nel/CellularAutomaton" alt="stars" />
+  </a>
+  <a href="https://github.com/Qu1nel/CellularAutomaton/issues/">
+    <img src="https://img.shields.io/github/issues/Qu1nel/CellularAutomaton" alt="open issues" />
+  </a>
 </p>
 
-<p align="center">
-   <img src="https://img.shields.io/badge/Python-3.10-blueviolet" alt="Python Version">
-   <img src="https://img.shields.io/github/v/release/Qu1nel/Life" alt="Version">
-   <img src="https://img.shields.io/github/license/Qu1nel/Life?color=g" alt="License" />
-   <img src="https://img.shields.io/github/actions/workflow/status/Qu1nel/Life/pylint_mypy.yml?label=Linting&logo=github" alt="Linting"/>
+<p>
+  <a href="https://www.python.org/downloads/release/python-3110/" >
+    <img src="https://img.shields.io/badge/Python-3.11%2B-blueviolet" alt="python Version" />
+  <a>
+  <a href="https://github.com/Qu1nel/CellularAutomaton/releases/">
+    <img src="https://img.shields.io/github/v/release/Qu1nel/CellularAutomaton" alt="project version" />
+  <a>
+  <a href="https://github.com/Qu1nel/CellularAutomaton/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/Qu1nel/CellularAutomaton?color=g" alt="license" />
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/actions/workflow/status/Qu1nel/CellularAutomaton/python_linting.yml" alt="linting" />
+  </a>
 </p>
 
-## About Life
+<h4>
+  <a href="#view-demo">View Demo</a>
+  <span> · </span>
+  <a href="#documentation">Documentation</a>
+  <span> · </span>
+  <a href="https://github.com/Qu1nel/CellularAutomaton/issues/">Report Bug</a>
+  <span> · </span>
+  <a href="https://github.com/Qu1nel/CellularAutomaton/issues/">Request Feature</a>
+</h4>
+</div>
 
-The game of Life is a cellular automaton written using Python.
+<br />
+
+<!-- Table of Contents -->
+
+# Contents
+
+- [About the Project](#about-cellular-automaton)
+  - [Screenshots](#screenshots)
+- [Installation](#installation)
+  - [Requirements](#requirements)
+- [Getting started](#getting-started)
+  - [Windows](#windows)
+  - [Linux](#linux)
+- [Documentation](#documentation)
+- [Flags](#flags)
+- [Developers](#developers)
+- [License](#license)
+
+## About Cellular Automaton
+
+Cellular Automaton - a simple interactive game Life for a visual representation of what it is.
+
+<details>
+  <summary><h3 id="screenshots">Screenshots</h3></summary>
+  <div align="center">
+    <img src=".github/assets/preview1.png" width=580px>
+    <img src=".github/assets/preview2.png" width=580px>
+  </div>
+</details>
 
 ## Installation
 
-Clone the repository and run the file **_main.py_**.
-Make sure that all [requirements](#requirements) are met.
+Clone the repository, install all requirements and run the file `run.py`.
 
-## Requirements
+### Requirements
 
-_The Python interpreter version 3.10+_
+_The [`Python`](https://www.python.org/downloads/) interpreter version 3.11+ and preferably [`poetry`](https://python-poetry.org/)_
 
-All python dependencies specified in the file [requirements.txt](./requirements.txt)
+Install requirements with `poetry`:
 
-    pip install -r requirements.txt
+```bash
+poetry install
+```
 
-## Getting Started
+## Getting started
 
-Run [`run.py`](./run.py) using the python interpreter
+Clone this repository and navigate to it with the command:
 
-### Windows
+```bash
+git clone https://github.com/Qu1nel/CellularAutomaton.git
+cd CellularAutomaton/
+```
 
-    python run.py
+If you have the `make` and `poetry` installed, you can run the game with the command:
 
-### Linux
+```bash
+make run
+```
 
-    python3 run.py
+Or
 
+```bash
+poetry run python run.py
+```
+
+Or you can simply run `run.py` using the python interpreter
+
+#### Windows
+
+```powershell
+python run.py
+```
+
+#### Linux
+
+```bash
+python3 run.py
+```
 
 ## Documentation
+
+For full help with make commands, you can use the command:
+
+```bash
+make help
+```
+
 
 | Key      | Action        |
 |----------|---------------|
@@ -49,10 +144,10 @@ Run [`run.py`](./run.py) using the python interpreter
 Pressing the space bar will ensure that the game stops until the next key is pressed.
 
 
-Also in the game it is possible to change the neighborhood calculation mode for a cell (number of counted neighbors) to **"Moore neighborhood"** and **"Neumann neighborhood"**.\
+Also in the game it is possible to change the neighborhood calculation mode for a cell (number of counted neighbors) to **"Moore neighborhood"** and **"Neumann neighborhood"**.
+
 This can be done using two buttons on the screen, which can be minimized at will.
 
----
 
 ### Flags
 
@@ -63,7 +158,7 @@ event log, then specify the `--debug` or `-D` flag. This will allow the game to 
 be saved to the `debug.log` file in the `src/log` directory (generated automatically).
 
 ```bash
-python ./main.py --debug  # Enable game logging
+python run.py --debug  # Enable game logging
 ```
 
 #### --hide-fps
@@ -71,7 +166,7 @@ python ./main.py --debug  # Enable game logging
 If you want to disable the display of fps in the game in the upper right corner, then use the flag `--hide-fps` or `-H`
 
 ```bash
-python ./main.py --hide-fps  # Disable showing fps in game
+python run.py --hide-fps  # Disable showing fps in game
 ```
 
 #### --Moore
@@ -79,7 +174,7 @@ python ./main.py --hide-fps  # Disable showing fps in game
 If you want to explicitly (because this parameter is set by default) enable the so-called Moore neighborhood that counts all 8 cell neighbors, use `--Moore` or `-M` flags.
 
 ```bash
-python ./main.py --Moore
+python run.py --Moore
 ```
 
 #### --Neumann
@@ -87,7 +182,7 @@ python ./main.py --Moore
 If you want to include the so-called Neumann neighborhood that allows the game to count only 4 neighbors for a cell, use `--Neumann` or `-N` flags.
 
 ```bash
-python ./main.py --Neumann
+python run.py --Neumann
 ```
 
 ## Developers
@@ -97,5 +192,3 @@ python ./main.py --Neumann
 ## License
 
 [MIT](./LICENSE) © [Ivan Kovach](https://github.com/Qu1nel/)
-
-This Project Qu1nel.CellularAutomaton in distributive under the **[MIT License](./LICENSE)**, and it also uses those codes that are distributed under the **[MIT License](./LICENSE)**.
