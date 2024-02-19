@@ -1,7 +1,7 @@
 [project]
 name = "CellualrAutomaton"
 description = "The Game of Life is a cellular automaton."
-version = "1.0"
+version = "1.0.1"
 readme = "README.md"
 requires-python = ">=3.11"
 
@@ -18,7 +18,7 @@ Repository = "https://github.com/Qu1nel/CellularAutomaton"
 
 [tool.poetry]
 name = "CellualrAutomaton"
-version = "1.0"
+version = "1.0.1"
 description = "The Game of Life is a cellular automaton."
 authors = ["Ivan Kovach <covach.qn@gmail.com>"]
 readme = "README.md"
@@ -29,12 +29,15 @@ pygame = "^2.5.2"
 loguru = "^0.7.2"
 numpy = "^1.26.4"
 numba = "^0.59.0"
+click = "^8.1.7"
+pydantic = "^2.6.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.2.1"
 mypy = "^1.8.0"
 pyright = "^1.1.350"
 black = "^24.1.1"
+pytest = "^8.0.0"
 
 
 [build-system]
@@ -64,10 +67,13 @@ ignore = [
     "FBT001", "FBT002", "PYI001", "PYI024", "PGH003",
     "PGH004", "TD002", "TD002", "S101", "S311", "T201",
     "T203", "INP001", "PIE796", "RET504", "PTH123", "UP007",
+    "D107", "D105",
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["E402"]
+"tests/test_cli.py" = ["D103", "N802"]
+"src/bases.py" = ["D103", "D102", "D101"]
+"src/engines/core.py" = ["N802"]
 
 
 [tool.mypy]
@@ -99,3 +105,8 @@ venv = ".venv"
 line-length = 120
 target-version = ["py311"]
 include = '\.pyi?$'
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    'ignore::DeprecationWarning'
+]
