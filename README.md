@@ -151,14 +151,14 @@ This can be done using two buttons on the screen, which can be minimized at will
 
 ### Flags
 
-#### --debug
+#### --logging
 
 If your game crashes and you want to understand why this is happening, or maybe you just want to see the entire
-event log, then specify the `--debug` or `-D` flag. This will allow the game to enable internal logging, which will
+event log, then specify the `--logging` or `-L` flag. This will allow the game to enable internal logging, which will
 be saved to the `debug.log` file in the `src/log` directory (generated automatically).
 
 ```bash
-python run.py --debug  # Enable game logging
+python run.py --logging  # Enable game logging
 ```
 
 #### --hide-fps
