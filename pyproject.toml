@@ -67,13 +67,14 @@ ignore = [
     "FBT001", "FBT002", "PYI001", "PYI024", "PGH003",
     "PGH004", "TD002", "TD002", "S101", "S311", "T201",
     "T203", "INP001", "PIE796", "RET504", "PTH123", "UP007",
-    "D107", "D105",
+    "D107", "D104", "D105",
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/test_cli.py" = ["D103", "N802"]
 "src/bases.py" = ["D103", "D102", "D101"]
-"src/engines/core.py" = ["N802"]
+"src/engines/core.py" = ["N802", "PLR0913"]
+"src/interfaces/elements.py" = ["PLR0913"]
 
 
 [tool.mypy]
