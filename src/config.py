@@ -9,7 +9,7 @@ class _MetaInfo(BaseModel):
     author: str = "Ivan Kovach"
     copyright: str = "Copyright 2024 (c) Ivan Kovach aka Qu1nel"
     license: str = Path(__file__).parent.with_name("LICENSE").read_text(encoding="UTF-8")
-    version: str = "1.0.1"
+    version: str = "1.1.0"
 
     maintainer: str = "Ivan Kovach"
     email: str = "covach.qn@gmail.com"
