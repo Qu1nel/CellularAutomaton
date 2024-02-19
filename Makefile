@@ -18,6 +18,10 @@ RESET		:= \\033[0m
 run: update  ## Launch app (run.py)
 	poetry run python run.py
 
+.PHONY: test
+test: update   ## Launch tests for game
+	poetry run pytest -v
+
 .PHONY: update
 update:
 	poetry install
