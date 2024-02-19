@@ -1,53 +1,68 @@
-"""
-This file is a configuration file, i.e. it is solely responsible for configuring the operation of the main files.
+from pathlib import Path
 
-It is better not to change some fields, because this may not lead to bad consequences.
+from pydantic import BaseModel, NonNegativeInt
 
-Below are the fields (variables) that you can change, but taking into account the comments, if any.
+from src.misc.type_aliases import Color, DeclareOptionModeType, DeclareOptionType, Resolution
 
-    * WIDTH  // satisfactory values from 800 to <your monitor width resolution>
-    * HEIGHT  // satisfactory values from 600 to <your monitor height resolution>
 
-    * FPS  // satisfactory value from 30 to 30+
+class _MetaInfo(BaseModel):
+    author: str = "Ivan Kovach"
+    copyright: str = "Copyright 2024 (c) Ivan Kovach aka Qu1nel"
+    license: str = Path(__file__).parent.with_name("LICENSE").read_text(encoding="UTF-8")
+    version: str = "1.0.1"
 
-    * COLOR_BG  // The background color set by the RGB color model
-    * COLOR_CELL  // The cell color set by the RGB color model
+    maintainer: str = "Ivan Kovach"
+    email: str = "covach.qn@gmail.com"
+    status: str = "Development"
 
-    * CELL_SIZE  // Size P×P pixels for one cell per field (minimum is 2px)
 
-    * FILE_LOG_NAME  // Name for the log file. Has a value when run with the --debug flag | -D
+class _GameSettings(BaseModel):
+    fps: NonNegativeInt = 100
+    low_fps: NonNegativeInt = 14
+    chill_fps: NonNegativeInt = 18
 
-Version: 0.11
-"""
-from collections import namedtuple
-from typing import Tuple
+    class GUIColors:
+        cell: Color = Color(R=241, G=196, B=15)  # Yellow almost
+        back_ground: Color = Color(R=50, G=50, B=50)  # Dark gray
+        interface: Color = Color(R=30, G=39, B=46)
 
-# For correct operation of interface rendering, please use wide format resolutions. 4:3, 1:1 not supported
-WIDTH_APP: int = 1600
-HEIGHT_APP: int = 900
-FPS: int = 30
-cell_color: Tuple[int, int, int] = (241, 196, 15)  # Yellow almost
-bg_color: Tuple[int, int, int] = (50, 50, 50)  # Dark Gray
-cell_size_px: int = 5  # Minimum value is 2
+    class Sizes:
+        cell: NonNegativeInt = 8
 
-# Below are the settings that it is not advisable to touch if you are not sure
-# exactly what you are changing.
-# -----------------------------------------------------------------------------
 
-# Resolution window of app
-WindowResolutionApp = namedtuple('WindowResolutionApp', ('Width', 'Height'))
-RESOLUTION_APP = WindowResolutionApp(Width=WIDTH_APP, Height=HEIGHT_APP)
+class _WindowConfig(BaseModel):
+    caption: str = "Cellular Automaton"
+    resolution: Resolution = Resolution(width=1600, height=900)
 
-# Frame rate for app
-FRAME_RATE = FPS
+    class PathToFile:
+        log_name: Path = Path("debug.log")
+        icon: Path = Path("icons/icon.png")
 
-# RGB Color Model
-Color = namedtuple("Color", ("R", "G", "B"))
-COLOR_BG = Color(R=50, G=50, B=50)
-COLOR_CELL = Color(*cell_color)
-COLOR_INTERFACE = Color(R=30, G=39, B=46)
 
-# Cell size
-CELL_SIZE = cell_size_px
+class _RotationSettings(BaseModel):
+    size: str = "2.5 MB"
+    type: str = "zip"
+    folder: str = "log"
 
-FILE_LOG_NAME: str = "debug.log"
+
+class _CLI(BaseModel):
+    class Docs:
+        logging: str = "Enables game logging."
+        hide_fps: str = "Disable showing fps in game."
+
+        class Mode:
+            moore: str = "Set Moore count neighbors mode (default)"
+            neumann: str = "Set Neumann count neighbors mode"
+
+    class Param:
+        logging: DeclareOptionType = ("-L", "--logging/--no-logging")
+        hide_fps: DeclareOptionType = ("-S", "--show-fps/--no-show-fps")
+        moore: DeclareOptionModeType = ("-M", "--Moore", "mode")
+        neumann: DeclareOptionModeType = ("-N", "--Neumann", "mode")
+
+
+MetaInfo = _MetaInfo()
+GameSettings = _GameSettings()
+WindowConfig = _WindowConfig()
+RotationSettings = _RotationSettings()
+CLI = _CLI()
