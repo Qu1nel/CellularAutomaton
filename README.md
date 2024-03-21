@@ -51,6 +51,12 @@
 
 <br />
 
+# Important note
+
+_**The project has been frozen indefinitely**_
+
+<br />
+
 <!-- Table of Contents -->
 
 # Contents
